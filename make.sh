@@ -8,7 +8,7 @@
 
 dir=~/dotfiles
 olddir=~/dotfiles_old
-files="bashrc zshrc vimrc tmux.conf"
+files="bashrc zshrc vimrc tmux.conf oh-my-zsh"
 
 ##################
 
