@@ -116,8 +116,6 @@ colorscheme badwolf
 
 " FZF
 let g:fzf_buffers_jump = 0 " Always open new window
-" let g:fzf_command_prefix = 'Fzf'
-" - down / up / left / right
 let g:fzf_layout = { 'down': '~40%'  }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
