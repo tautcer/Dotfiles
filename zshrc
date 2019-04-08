@@ -99,6 +99,7 @@ alias dis='cd /mnt/c/Users/test/University/Dissertation/DissertationCode'
 alias python='python3'
 alias vimrc='vim ~/.vimrc'
 alias home='cd /mnt/c/Users/test'
+alias tls='tmux ls'
 
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
