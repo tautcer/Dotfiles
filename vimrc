@@ -1,9 +1,9 @@
-if &compatible
-    set nocompatible                " No vi compatible
-endif"
-
-" let mapleader = ","
 let mapleader = "\<Space>"
+
+if !has("gui_running")
+    set mouse=a
+    set nocompatible
+endif
 
 set nolist
 set nowrap
@@ -12,8 +12,8 @@ set cursorcolumn                " Highlight current column
 set colorcolumn=80
 set scrolloff=3
 set norelativenumber
-set mouse=a
 set clipboard=unnamedplus
+syntax enable
 
 " Natural splits
 set splitbelow
@@ -40,7 +40,6 @@ set laststatus=2
 set showmode
 set showcmd
 set encoding=UTF-8
-set mouse=a
 set ignorecase
 set smartcase
 set re=1
@@ -55,7 +54,7 @@ set undodir=~/.vim/undofiles
 
 " tab to select and don't hijack my enter key
 inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
-inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")"
+" inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")"
 
 filetype plugin indent on
 
@@ -82,11 +81,14 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'python-mode/python-mode', { 'branch': 'develop'  }
 Plug 'bling/vim-bufferline'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 Plug 'morhetz/gruvbox'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'airblade/vim-rooter'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'  }
+Plug 'maralla/completor.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -98,20 +100,32 @@ let g:highlightedyank_highlight_duration = 1000
 let g:pymode_python = 'python3'
 
 " air-line
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
+
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+let g:ale_go_langserver_executable = 'gopls'
+let g:go_fmt_command = "goimports"
+set completeopt+=noinsert
 
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
 
+if has('termguicolors')
+    set t_Co=256
+    colorscheme gruvbox
+    let g:gruvbox_contrast_dark = 'hard'
+endif 
+
 " Color thingies
 set background=dark
-let g:airline_theme='badwolf'
+" set t_Co=256
+let g:airline_theme='gruvbox'
 colorscheme badwolf
 
 " FZF
@@ -170,9 +184,27 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Just in case I'll ever
 let g:anyfold_activate=0 " Disable anyfold by default
 let g:anyfold_motion=0 " Don't map motion commands
 
+" Go text highlighting specific features 
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function_calls = 1
+
+" Error and warning signs
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+" Enable integration with airline.
+let g:airline#extensions#ale#enabled = 1
+
 map <C-n> :NERDTreeToggle<CR>
 " imap jj <Esc>
 nmap ZZ :wq<CR>
 
 au FileType markdown syn sync fromstart
 au FileType markdown set foldmethod=syntax
+au BufRead, BufNewFile *.go set filetype=go

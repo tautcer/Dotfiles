@@ -1,15 +1,17 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+ZSH_DISABLE_COMPFIX=true
+
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/unitato/.oh-my-zsh"
+export ZSH="/home/unitato/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
-plugins=(git)
+plugins=(git tmux zsh-syntax-highlighting zsh-autosuggestions)
 
 
 # Set list of themes to pick from when loading at random
@@ -98,13 +100,15 @@ alias c=clear
 alias dis='cd /mnt/c/Users/test/University/Dissertation/DissertationCode'
 alias python='python3'
 alias vimrc='vim ~/.vimrc'
-alias home='cd /mnt/c/Users/test'
-alias tls='tmux ls'
 
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/projects/
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3  
 source `which virtualenvwrapper.sh`  
@@ -114,11 +118,12 @@ source `which virtualenvwrapper.sh`
 test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
-echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
 # Move next only if `homebrew` is installed
 if command -v brew >/dev/null 2>&1; then
   # Load rupa's z if installed
   [ -f $(brew --prefix)/etc/profile.d/z.sh  ] && source $(brew --prefix)/etc/profile.d/z.sh
 fi
 . /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
-# TERM=xterm-256color
+export TERM=xterm-256color
+
+source /home/unitato/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
