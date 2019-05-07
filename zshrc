@@ -97,7 +97,6 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias c=clear 
-alias dis='cd /mnt/c/Users/test/University/Dissertation/DissertationCode'
 alias python='python3'
 alias vimrc='vim ~/.vimrc'
 
@@ -114,16 +113,16 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source `which virtualenvwrapper.sh`  
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
-# Move next only if `homebrew` is installed
-if command -v brew >/dev/null 2>&1; then
-  # Load rupa's z if installed
-  [ -f $(brew --prefix)/etc/profile.d/z.sh  ] && source $(brew --prefix)/etc/profile.d/z.sh
-fi
-. /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
+#
+# test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+# test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+# # Move next only if `homebrew` is installed
+# if command -v brew >/dev/null 2>&1; then
+#   # Load rupa's z if installed
+#   [ -f $(brew --prefix)/etc/profile.d/z.sh  ] && source $(brew --prefix)/etc/profile.d/z.sh
+# fi
+# . /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
 export TERM=xterm-256color
 
 source /home/unitato/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
