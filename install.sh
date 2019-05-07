@@ -1,6 +1,6 @@
 #!/bin/bash
 ###################
-# install.sh script installs all the necessary system configurations for manjaro
+# install.sh script installs all the necessary system configurations for Manjaro
 ###################
 
 ###################
@@ -21,6 +21,9 @@ packages="\
     tmux \
     gcc \ 
     fakeroot \
+    nodejs \ 
+    robo3t-bin \
+    mongodb-bin \
 "
 
 yaypackages="\
