@@ -40,10 +40,10 @@ removepackages="\
     vi \
 "
 
-# Remove some software
-echo `Removing some software: $removepackages`
-sleep 1
-sudo packam -Rsc $removepackages
+# # Remove some software
+# echo `Removing some software: $removepackages`
+# sleep 1
+# sudo packam -Rsc $removepackages
 
 # Update pacman and install keyring to avoid signature problem 
 echo "Installing the main manjaro packages"
