@@ -18,6 +18,13 @@ Have these 2 installed:
     Plug 'mhartington/nvim-typescript', {'build': './install.sh'}
 
 Add this to vimrc
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver', 'tslint'],
+\   'vue': ['eslint']
+\}
+
 " Ale setup for typescript
 let g:ale_fixers = {
 \    'javascript': ['eslint'],
