@@ -5,6 +5,10 @@ set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin $HOME/.pyenv
 
 abbr -a e nvim
 abbr -a g git
+abbr -a gc 'git checkout'
+abbr -a ga 'git add -p'
+abbr -a gcm 'git commit -m'
+abbr -a gah 'git stash; and git pull --rebase; and git stash pop'
 
 # Fish git prompt
 set __fish_git_prompt_showuntrackedfiles 'yes'
@@ -67,4 +71,8 @@ function fish_user_key_bindings
 	if functions -q fzf_key_bindings
 		fzf_key_bindings
 	end
+end
+
+if status --is-interactive
+	tmux ^ /dev/null; and exec true
 end
