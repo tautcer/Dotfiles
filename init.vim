@@ -8,8 +8,10 @@ endif
 set nolist
 set nowrap
 set scrolloff=3
-set norelativenumber
+set relativenumber
+set rnu
 set clipboard=unnamedplus
+set title
 syntax enable
 
 " Natural splits
@@ -25,8 +27,8 @@ set number
 set ruler
 
 " Set Proper Tabs
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set smarttab
 set expandtab
 
@@ -63,16 +65,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'majutsushi/tagbar'
-Plug 'sjl/badwolf'
+" Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
-Plug 'tomtom/tcomment_vim'
+" Plug 'tomtom/tcomment_vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'python-mode/python-mode', { 'branch': 'develop'  }
 Plug 'bling/vim-bufferline'
@@ -87,7 +88,10 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'mattn/emmet-vim',
+Plug 'leafgarland/typescript-vim'
+Plug 'mhartington/nvim-typescript', {'build': './install.sh'}
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'rust-lang/rust.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -95,11 +99,11 @@ call plug#end()
 let g:Powerline_symbols = "fancy"
 let g:Powerline_dividers_override = ["\Ue0b0","\Ue0b1","\Ue0b2","\Ue0b3"]
 let g:Powerline_symbols_override = {'BRANCH': "\Ue0a0", 'LINE': "\Ue0a1", 'RO': "\Ue0a2"}
-let g:highlightedyank_highlight_duration = 1000
+let g:highlightedyank_highlight_duration = 250
 let g:pymode_python = 'python3'
 
 " air-line
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 
 let g:go_gocode_propose_source = 1
 
@@ -168,11 +172,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
 let g:fzf_colors =
   \ { 'fg':    ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -212,6 +211,29 @@ let g:ale_sign_warning = '⚠'
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
 
+" Ale setup for typescript
+let g:ale_fixers = {
+\    'javascript': ['eslint'],
+\    'typescript': ['prettier'],
+\    'vue': ['eslint'],
+\    'scss': ['prettier'],
+\    'html': ['prettier']
+\}
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver', 'tslint']
+\}
+
+let g:ale_fix_on_save = 1
+let g:yats_host_keyword = 1
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " let g:LanguageClient_hasSnippetsSupport = 0
 " let g:ale_linters.cpp = ['clangcheck', 'clangtidy', 'cppcheck']
 
@@ -223,3 +245,9 @@ au FileType markdown syn sync fromstart
 au FileType markdown set foldmethod=syntax
 au FileType go setlocal omnifunc=go#complete#GocodeComplete
 au BufRead, BufNewFile *.go set filetype=go
+augroup FiletypeGroup
+    autocmd!
+    " .ts is a Typescript file
+    au BufNewFile,BufRead *.ts set filetype=typescript
+augroup END
+source ~/.config/nvim/coc.vim

@@ -119,3 +119,6 @@ source `which virtualenvwrapper.sh`
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 neofetch
 export PATH="$PATH:/home/unitato/.dotnet/tools"
+# This function runs AG to find and replace a string across all the files in the dir
+# Takes 2 arguments 1: what to search for 2: what to replace it with
+function agr { ag -0 -l "$1" | AGR_FROM="$1" AGR_TO="$2" xargs -0 perl -pi -e 's/$ENV{AGR_FROM}/$ENV{AGR_TO}/g'; }
