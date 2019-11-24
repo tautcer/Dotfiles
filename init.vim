@@ -13,6 +13,8 @@ set rnu
 set clipboard=unnamedplus
 set title
 syntax enable
+syntax sync fromstart
+set redrawtime=10000
 
 " Natural splits
 set splitbelow
@@ -41,15 +43,15 @@ set showcmd
 set encoding=UTF-8
 set ignorecase
 set smartcase
-set re=1
+" set re=1
 set backspace=indent,eol,start
 
 " Permanent undo
-set dir=~/.vim/swapfiles
+set dir=~/.config/nvim/
 set backup
-set backupdir=~/.vim/backupfiles
+set backupdir=~/.config/nvim/
 set undofile
-set undodir=~/.vim/undofiles
+set undodir=~/.config/nvim/
 
 " tab to select and don't hijack my enter key
 " inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
@@ -57,7 +59,7 @@ set undodir=~/.vim/undofiles
 
 filetype plugin indent on
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/')
 
 " Declare the list of plugins.
 Plug 'itchyny/lightline.vim'
@@ -124,7 +126,7 @@ nnoremap <C-H> <C-W>h
 if has('termguicolors')
     set t_Co=256
     colorscheme gruvbox
-    let g:gruvbox_contrast_dark = 'hard'
+    let g:gruvbox_contrast_dark = 'light'
 endif 
 
 " Color thingies
@@ -245,9 +247,9 @@ au FileType markdown syn sync fromstart
 au FileType markdown set foldmethod=syntax
 au FileType go setlocal omnifunc=go#complete#GocodeComplete
 au BufRead, BufNewFile *.go set filetype=go
-augroup FiletypeGroup
-    autocmd!
-    " .ts is a Typescript file
-    au BufNewFile,BufRead *.ts set filetype=typescript
-augroup END
+" augroup FiletypeGroup
+"     autocmd!
+"     " .ts is a Typescript file
+"     au BufNewFile,BufRead *.ts set filetype=typescript
+" augroup END
 source ~/.config/nvim/coc.vim
