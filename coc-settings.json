@@ -13,5 +13,5 @@
 	  },
     "typescript.validate.enable": false,
     "tsserver.trace.server": "verbose",
-    "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "typescript"]
+    "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "typescript", "rust"]
 }

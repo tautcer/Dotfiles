@@ -33,6 +33,7 @@ setenv LESS_TERMCAP_ue \e'[0m'           # end underline
 setenv LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
 setenv FZF_DEFAULT_OPTS '--height 20%'
+setenv FZF_DEFAULT_COMMAND 'fd --hidden --exclude .git '
 
 function fish_prompt
 	set_color brblack
@@ -75,4 +76,8 @@ end
 
 if status --is-interactive
 	tmux ^ /dev/null; and exec true
+end
+
+function pushorigin
+    git push origin --set-upstream (git branch | grep '^*' | tr -d '* ')
 end
