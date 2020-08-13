@@ -4,24 +4,28 @@ if !has("gui_running")
     set mouse=a
     set nocompatible
 endif
+set termguicolors
 
 set nolist
 set nowrap
 set scrolloff=3
-set relativenumber
 set rnu
 set clipboard=unnamedplus
 set title
 syntax enable
 syntax sync fromstart
+" set re=1
 set redrawtime=10000
+set lazyredraw
+set ttyfast
+set completeopt+=noinsert
 
 " Natural splits
 set splitbelow
 set splitright"
 
-" Indetiation
-set autoindent                  " keep indentiation
+" Indentations
+set autoindent                  " keep indentations
 set smartindent                 " be smart
 
 " Show linenumbers
@@ -41,51 +45,44 @@ set laststatus=2
 set showmode
 set showcmd
 set encoding=UTF-8
-set ignorecase
-set smartcase
-" set re=1
 set backspace=indent,eol,start
 
-" Permanent undo
-set dir=~/.config/nvim/
-set backup
-set backupdir=~/.config/nvim/
-set undofile
-set undodir=~/.config/nvim/
+" Proper search
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
 
-" tab to select and don't hijack my enter key
-" inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
-" inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")"
+" Permanent undo
+set dir=~/.config/nvim/swap/
+set backup
+set backupdir=~/.config/nvim/backup/
+set undofile
+set undodir=~/.config/nvim/undo/
+
+set guifont=FiraCode\ Nerd\ Font\ 12
 
 filetype plugin indent on
 
-call plug#begin('~/.config/nvim/')
+call plug#begin('~/.config/nvim/plugged/')
 
 " Declare the list of plugins.
 Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
-" Plug 'tomtom/tcomment_vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
-" Plug 'scrooloose/nerdcommenter'
 Plug 'machakann/vim-highlightedyank'
-Plug 'python-mode/python-mode', { 'branch': 'develop'  }
 Plug 'bling/vim-bufferline'
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
-Plug 'morhetz/gruvbox'
-Plug 'godlygeek/tabular'
+Plug 'gruvbox-community/gruvbox'
 Plug 'plasticboy/vim-markdown'
 Plug 'airblade/vim-rooter'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -94,6 +91,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'mhartington/nvim-typescript', {'build': './install.sh'}
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'rust-lang/rust.vim'
+Plug 'ryanoasis/vim-devicons'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -103,6 +101,7 @@ let g:Powerline_dividers_override = ["\Ue0b0","\Ue0b1","\Ue0b2","\Ue0b3"]
 let g:Powerline_symbols_override = {'BRANCH': "\Ue0a0", 'LINE': "\Ue0a1", 'RO': "\Ue0a2"}
 let g:highlightedyank_highlight_duration = 250
 let g:pymode_python = 'python3'
+let g:python3_host_prog= '/usr/bin/python3.8'
 
 " air-line
 let g:airline_powerline_fonts = 1
@@ -114,59 +113,28 @@ if !exists('g:airline_symbols')
 endif
 
 let g:go_auto_sameids = 1
-let g:ale_go_langserver_executable = 'gopls'
+" let g:ale_go_langserver_executable = 'gopls'
 let g:go_fmt_command = "goimports"
-set completeopt+=noinsert
 
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
-nnoremap <C-H> <C-W>h
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = 0
 
-if has('termguicolors')
-    set t_Co=256
-    colorscheme gruvbox
-    let g:gruvbox_contrast_dark = 'light'
-endif 
+" This is only necessary if you use 'set termguicolors'
+" It fixes tmux+vim
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+colorscheme gruvbox
 
 " Color thingies
 set background=dark
 let g:airline_theme='gruvbox'
-" colorscheme badwolf
 
 " FZF
 let g:fzf_buffers_jump = 0 " Always open new window
-let g:fzf_layout = { 'down': '~40%'  }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ctrl B for buffer related mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <Leader>bb :bn<CR> "create (N)ew buffer
-nnoremap <silent> <Leader>bd :bdelete<CR> "(D)elete the current buffer
-nnoremap <silent> <Leader>bu :bunload<CR> "(U)nload the current buffer
-nnoremap <silent> <Leader>bl :setnomodifiable<CR> " (L)ock the current buffer"
-nnoremap <silent> <leader>f :FZF<cr>
-nnoremap <silent> <leader>F :FZF ~<cr>
-nnoremap <silent> <leader>b :Buffers<cr>
-nmap <leader>r :Rg
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-nnoremap <leader>w :w<cr>
-
-nnoremap j jzz
-nnoremap k kzz
-nnoremap <Down> jzz
-nnoremap <Up> kzz
-
-" Ctrl+c and Ctrl+j as Esc
-inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
-inoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
-
-" Jump to start and end of line using the home row keys
-map H ^
-map L $
+" let g:fzf_layout = { 'down': '~40%'  }
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS = '--reverse'
 
 " Better tab completion ???
 function! s:check_back_space() abort
@@ -215,41 +183,21 @@ let g:airline#extensions#ale#enabled = 1
 
 " Ale setup for typescript
 let g:ale_fixers = {
-\    'javascript': ['eslint'],
-\    'typescript': ['prettier'],
-\    'vue': ['eslint'],
+\    'typescript': ['eslint', 'prettier'],
 \    'scss': ['prettier'],
 \    'html': ['prettier']
 \}
 
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['tsserver', 'tslint']
+\   'typescript': ['tsserver', 'eslint']
 \}
 
 let g:ale_fix_on_save = 1
 let g:yats_host_keyword = 1
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" let g:LanguageClient_hasSnippetsSupport = 0
-" let g:ale_linters.cpp = ['clangcheck', 'clangtidy', 'cppcheck']
-
-map <C-n> :NERDTreeToggle<CR>
-" imap jj <Esc>
-nmap ZZ :wq<CR>
-
 au FileType markdown syn sync fromstart
 au FileType markdown set foldmethod=syntax
 au FileType go setlocal omnifunc=go#complete#GocodeComplete
 au BufRead, BufNewFile *.go set filetype=go
-" augroup FiletypeGroup
-"     autocmd!
-"     " .ts is a Typescript file
-"     au BufNewFile,BufRead *.ts set filetype=typescript
-" augroup END
 source ~/.config/nvim/coc.vim
+source ~/.config/nvim/mappings/mappings.vim

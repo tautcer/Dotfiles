@@ -6,12 +6,40 @@
 		  "filetypes": ["c", "cpp", "objc", "objcpp"]
 		},
     "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
+      "command": "go-langserver",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosticsEnabled": true,
+        "lintTool": "golint"
+      },
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"]
     }
 	  },
+    "typescript.suggest.autoImports": true,
+    "typescript.suggest.enabled": true,
     "typescript.validate.enable": false,
     "tsserver.trace.server": "verbose",
-    "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "typescript", "rust"]
+    "coc.preferences.formatOnSaveFiletypes": [
+      "css",
+      "markdown",
+      "rust",
+      "typescript"
+    ],
+    "tslint.autoFixOnSave": true,
+    "diagnostic.errorSign": "⤫",
+    "diagnostic.warningSign": "⚠",
+    "diagnostic.infoSign": "•",
+    "git.enableGutters": true,
+    "java.jdt.ls.vmargs": "-javaagent:/home/unitato/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar -Xbootclasspath/a:/home/unitato.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar",
+    "java.import.maven.enabled": true,
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "explorer.width": 60,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.previewAction.onHover": false,
+    "explorer.file.tabCD": true,
+    "cSpell.userWords": [
+      "Uuid"
+    ],
+    "cSpell.ignoreWords": ["Workpack", "autologging", "workpack", "workplan", "Workplan", "workplans", "Workpacks"]
 }

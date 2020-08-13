@@ -3,12 +3,24 @@
 set -gx EDITOR nvim
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin $HOME/.pyenv/bin $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin /home/unitato/.dotnet/tools
 
+# add the go bin path to be able to execute our programs
+set -x GOPATH /home/unitato/go
+set -x PATH $PATH /usr/local/go/bin $GOPATH/bin
+set -x fish_user_paths $HOME/.pyenv
+set -x fish_user_paths $PYENV_ROOT/bin:$PATH
+
+set PYENV_ROOT $HOME/.pyenv
+set -x PATH "/home/unitato/.pyenv/bin" $PATH
+status --is-interactive; and pyenv init - | source
+set -x VIRTUAL_ENV_DISABLE_PROMPT 0
+set -x JAVA_HOME "/home/unitato/dev/jdk-13.0.2"
+set -U FZF_LEGACY_KEYBINDINGS 0
+set -U fish_key_bindings fish_default_key_bindings
+set PATH $HOME/.cargo/bin $PATH
+
+eval (python -m virtualfish)
+
 abbr -a e nvim
-abbr -a g git
-abbr -a gc 'git checkout'
-abbr -a ga 'git add -p'
-abbr -a gcm 'git commit -m'
-abbr -a gah 'git stash; and git pull --rebase; and git stash pop'
 
 # Fish git prompt
 set __fish_git_prompt_showuntrackedfiles 'yes'
@@ -33,30 +45,17 @@ setenv LESS_TERMCAP_ue \e'[0m'           # end underline
 setenv LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 
 setenv FZF_DEFAULT_OPTS '--height 20%'
-setenv FZF_DEFAULT_COMMAND 'fd --hidden --exclude .git '
+export FZF_DEFAULT_COMMAND='fd --type f --color=never'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --color=never"
 
-function fish_prompt
-	set_color brblack
-	echo -n "["(date "+%H:%M")"] "
-	set_color blue
-	echo -n (hostname)
-	if [ $PWD != $HOME ]
-		set_color brblack
-		echo -n ':'
-		set_color yellow
-		echo -n (basename $PWD)
-	end
-	set_color green
-	printf '%s ' (__fish_git_prompt)
-	set_color red
-	echo -n '| '
-	set_color normal
-end
-
-# # This function runs AG to find and replace a string across all the files in the dir
-# # Takes 2 arguments 1: what to search for 2: what to replace it with
-function agr 
-  ag -0 -l "$1" | AGR_FROM="$1" AGR_TO="$2" xargs -0 perl -pi -e 's/$ENV{AGR_FROM}/$ENV{AGR_TO}/g' 
+# This function runs RG to find and replace a string across all the files in the dir
+# Takes 2 arguments 1: what to search for 2: what to replace it with
+function rgr 
+  set RGR_FROM $argv[1]
+  set RGR_TO $argv[2]
+  rg $RGR_FROM 
+  rg $RGR_FROM -l -n | xargs sed -i "s/$RGR_FROM/$RGR_TO/g"
 end
 
 function fco -d "Fuzzy-find and checkout a branch"
