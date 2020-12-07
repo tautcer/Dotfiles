@@ -68,30 +68,32 @@ call plug#begin('~/.config/nvim/plugged/')
 
 " Declare the list of plugins.
 Plug 'itchyny/lightline.vim'
-Plug 'vim-airline/vim-airline'
 Plug 'edkolev/tmuxline.vim'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'w0rp/ale'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'bling/vim-bufferline'
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
 Plug 'gruvbox-community/gruvbox'
 Plug 'plasticboy/vim-markdown'
 Plug 'airblade/vim-rooter'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'leafgarland/typescript-vim'
 Plug 'mhartington/nvim-typescript', {'build': './install.sh'}
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'ryanoasis/vim-devicons'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'tpope/vim-fugitive'
+Plug 'voldikss/vim-floaterm'
+
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -103,8 +105,19 @@ let g:highlightedyank_highlight_duration = 250
 let g:pymode_python = 'python3'
 let g:python3_host_prog= '/usr/bin/python3.8'
 
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",     -- one of "all", "language", or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = {},  -- list of language that will be disabled
+  },
+}
+EOF
+" lua require'nvim_lsp'.tsserver.setup{}
+
 " air-line
-let g:airline_powerline_fonts = 1
 
 let g:go_gocode_propose_source = 1
 
@@ -128,7 +141,6 @@ colorscheme gruvbox
 
 " Color thingies
 set background=dark
-let g:airline_theme='gruvbox'
 
 " FZF
 let g:fzf_buffers_jump = 0 " Always open new window
@@ -178,26 +190,60 @@ let g:go_highlight_function_calls = 1
 " Error and warning signs
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
 
 " Ale setup for typescript
 let g:ale_fixers = {
 \    'typescript': ['eslint', 'prettier'],
 \    'scss': ['prettier'],
-\    'html': ['prettier']
+\    'html': ['prettier'],
+\    'python': ['yapf']
 \}
 
 let g:ale_linters = {
-\   'typescript': ['tsserver', 'eslint']
+\   'typescript': ['tsserver', 'eslint'],
+\   'python': ['flake8', 'pylint'],
 \}
 
 let g:ale_fix_on_save = 1
 let g:yats_host_keyword = 1
 
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ 'mode_map': {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'VL',
+        \ "\<C-v>": 'VB',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'SL',
+        \ "\<C-s>": 'SB',
+        \ 't': 'T',
+        \ },
+      \ }
+
 au FileType markdown syn sync fromstart
 au FileType markdown set foldmethod=syntax
 au FileType go setlocal omnifunc=go#complete#GocodeComplete
 au BufRead, BufNewFile *.go set filetype=go
+au BufNewFile,BufRead *.html set filetype=html
+
+if has("autocmd")
+ " Highlight TODO, FIXME, NOTE, etc.
+ if v:version > 701
+ autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
+ autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
+ endif
+endif
+
 source ~/.config/nvim/coc.vim
 source ~/.config/nvim/mappings/mappings.vim

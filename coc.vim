@@ -150,5 +150,4 @@ let g:coc_explorer_global_presets = {
 \   }
 \ }
 " List all presets
-nmap <space>el :CocList explPresets
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
