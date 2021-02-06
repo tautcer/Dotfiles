@@ -33,7 +33,6 @@ end
 -- preview file using xdg_open
 Util.xdg_open = function()
   local filename = vim.fn.expand("<cfile>")
-  P(filename)
   vim.loop.spawn("xdg-open", {args = {filename}})
 end
 
@@ -114,24 +113,6 @@ vim.api.nvim_exec([[
   command! -nargs=? -range=% ToRgb call v:lua.Util.convert_color('rgb')
   command! -nargs=? -range=% ToHex call v:lua.Util.convert_color('hex')
 ]], true)
-
--- translate selected word, useful for when I do jp assignments
-Util.translate = function(lang)
-  local word = Util.get_word()
-  local job = Job:new({
-    command = "trans",
-    args = {"-b", ":" .. (lang or "en"), word}
-  })
-
-  local ok, result = pcall(function() return vim.trim(job:sync()[1]) end)
-
-  if ok then
-    vim.lsp.handlers["textDocument/hover"](nil, "textDocument/hover", {
-      contents = { result }
-    })
-  end
-end
-vim.cmd('command! -range -nargs=1 Translate call v:lua.Util.translate(<f-args>)')
 
 Util.is_cfg_present = function(cfg_name)
   -- this returns 1 if it's not present and 0 if it's present

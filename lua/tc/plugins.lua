@@ -42,7 +42,6 @@ return require('packer').startup {
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
 
     -- Navigation
-    -- use {'ms-jpq/chadtree'}
     use {'kyazdani42/nvim-tree.lua'}
 
     -- Git
@@ -58,7 +57,6 @@ return require('packer').startup {
     use 'brooth/far.vim'
 
     -- JS, TS, HTML and CSS plugins
-    -- use { 'prettier/vim-prettier', run = 'yarn install' }
     use 'mattn/emmet-vim'
     use {'mhartington/formatter.nvim'}
 
@@ -68,8 +66,6 @@ return require('packer').startup {
 
     -- Lsp
     use {'neovim/nvim-lspconfig'}
-    -- use {'nvim-lua/completion-nvim'}
-    -- use {'steelsojka/completion-buffers'}
     use {'nvim-lua/lsp-status.nvim'}
     use {'norcalli/nvim-colorizer.lua'}
     use {'RishabhRD/popfix'}

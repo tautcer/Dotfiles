@@ -1,6 +1,7 @@
 local lsp = require('lspconfig')
 local lsp_status  = require('lsp-status')
 local util = require 'lspconfig/util'
+local is_cfg_present = require("tc.utils.util").is_cfg_present
 
 local map = function(type, key, value)
 	vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
@@ -54,6 +55,60 @@ local sumneko_binary = "/home/unitato/.cache/nvim/lspconfig/sumneko_lua/lua-lang
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- use eslint if the eslint config file present
+-- disabled this for now, since it isn't really working
+-- local is_using_eslint = function(_, _, result, client_id)
+--   if is_cfg_present(".eslintrc.js") or is_cfg_present("/applications/web-client/.eslintrc.js") then
+--     return
+--   end
+
+--   return vim.lsp.handlers["textDocument/publishDiagnostics"](_, _, result, client_id)
+-- end
+
+require'lspconfig'.diagnosticls.setup{
+  filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "css"},
+  root_dir = function(fname)
+    return util.root_pattern("tsconfig.json")(fname) or
+    util.root_pattern(".eslintrc.js")(fname);
+  end,
+  init_options = {
+    linters = {
+      eslint = {
+        command = "/usr/local/bin/eslint_d",
+        rootPatterns = {".eslintrc.js", ".git"},
+        debounce = 100,
+        args = {
+          "--stdin",
+          "--stdin-filename",
+          "%filepath",
+          "--format",
+          "json"
+        },
+        sourceName = "eslint",
+        parseJson = {
+          errorsRoot = "[0].messages",
+          line = "line",
+          column = "column",
+          endLine = "endLine",
+          endColumn = "endColumn",
+          message = "[eslint] ${message} [${ruleId}]",
+          security = "severity"
+        },
+        securities = {
+          [2] = "error",
+          [1] = "warning"
+        }
+      },
+    },
+    filetypes = {
+      javascript = "eslint",
+      typescript = "eslint",
+      javascriptreact = "eslint",
+      typescriptreact = "eslint"
+    }
+  }
+}
+
 local servers = {
   bashls = {},
   vimls = {},
@@ -74,6 +129,9 @@ local servers = {
     cmd = { "typescript-language-server", "--stdio" },
     filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
     capabilities = capabilities,
+    -- handlers = {
+    --   ["textDocument/publishDiagnostics"] = is_using_eslint
+    -- },
   },
 
   -- angularls = {

@@ -2,19 +2,20 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true,
+    node: true
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
-    'prettier',
+    'prettier'
   ],
+  ignorePatterns: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['@typescript-eslint', 'prefer-arrow', 'import', 'jsdoc'],
   rules: {
@@ -27,8 +28,8 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': [
       'off',
       {
-        accessibility: 'explicit',
-      },
+        accessibility: 'explicit'
+      }
     ],
     // check if this is needed as it seems to conflict with prettier
     //'@typescript-eslint/indent': [
@@ -49,13 +50,13 @@ module.exports = {
       {
         multiline: {
           delimiter: 'semi',
-          requireLast: true,
+          requireLast: true
         },
         singleline: {
           delimiter: 'semi',
-          requireLast: false,
-        },
-      },
+          requireLast: false
+        }
+      }
     ],
     '@typescript-eslint/member-ordering': 'warn',
     '@typescript-eslint/no-empty-function': 'off',
@@ -95,8 +96,8 @@ module.exports = {
     'max-len': [
       'warn',
       {
-        code: 140,
-      },
+        code: 140
+      }
     ],
     'new-parens': 'warn',
     'no-bitwise': 'warn',
@@ -114,8 +115,8 @@ module.exports = {
     'no-shadow': [
       'warn',
       {
-        hoist: 'all',
-      },
+        hoist: 'all'
+      }
     ],
     'no-throw-literal': 'warn',
     'no-trailing-spaces': 'warn',
@@ -136,8 +137,8 @@ module.exports = {
       {
         anonymous: 'never',
         asyncArrow: 'always',
-        named: 'never',
-      },
+        named: 'never'
+      }
     ],
     'spaced-comment': 'warn',
     'use-isnan': 'warn',
@@ -167,11 +168,11 @@ module.exports = {
     '@typescript-eslint/no-this-alias': ['error'],
     'no-unused-vars': ['off'],
     '@typescript-eslint/no-unused-vars': ['warn'],
-    'no-use-before-define': ['off'],
+    'no-use-before-define': ['off']
   },
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts'],
-    },
-  },
+      '@typescript-eslint/parser': ['.ts']
+    }
+  }
 };

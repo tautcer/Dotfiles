@@ -1,7 +1,6 @@
 local is_cfg_present = require('tc.utils.util').is_cfg_present
 
 local prettier = function()
-  print(is_cfg_present("/.prettierrc"))
   if is_cfg_present("/.prettierrc") then
     return {
       exe = "prettier",

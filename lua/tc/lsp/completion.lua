@@ -81,7 +81,6 @@ Util.trigger_completion = function()
     end
 
     vim.fn.nvim_select_popupmenu_item(0 , false , false ,{})
-    P(vim.fn["compe#confirm"]())
     return vim.fn["compe#confirm"]()
   end
 
