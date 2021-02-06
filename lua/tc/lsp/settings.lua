@@ -96,8 +96,6 @@ local servers = {
     }
   },
 
-  efm = {
-  },
   pyls = {
     filetypes = { 'python' }
   },
