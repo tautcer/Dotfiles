@@ -1,5 +1,4 @@
 local lsp = require('lspconfig')
-local lsp_completion = require('completion')
 local lsp_status  = require('lsp-status')
 local util = require 'lspconfig/util'
 
@@ -8,7 +7,7 @@ local map = function(type, key, value)
 end
 local function on_attach(client)
     lsp_status.on_attach(client)
-    lsp_completion.on_attach(client)
+    -- lsp_completion.on_attach(client)
 
     -- use omnifunc
     vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -28,6 +27,7 @@ local function on_attach(client)
     map('n', '<leader>ao', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     map('n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     map('n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+    map('n', '<Leader>ff', '<cmd>Format<cr>')
 
     if client.resolved_capabilities.document_formatting then
         vim.api.nvim_command [[augroup Format]]
@@ -35,12 +35,6 @@ local function on_attach(client)
         vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
         vim.api.nvim_command [[augroup END]]
         vim.api.nvim_command [[ autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics() ]]
-    end
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-      map("n", "<space>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-    elseif client.resolved_capabilities.document_range_formatting then
-      map("n", "<space>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>")
     end
 end
 --

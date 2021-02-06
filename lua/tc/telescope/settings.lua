@@ -12,7 +12,7 @@ require('telescope').setup{
       '--column',
       '--smart-case'
     },
-    prompt_position = "bottom",
+    prompt_position = "top",
     prompt_prefix = ">",
     selection_strategy = "reset",
     sorting_strategy = "descending",
@@ -35,7 +35,7 @@ require('telescope').setup{
         ["<C-j>"] = actions.preview_scrolling_down,
       }
     },
-    file_sorter =  require'telescope.sorters'.get_fuzzy_file ,
+    file_sorter =  require'telescope.sorters'.get_fzy_sorter ,
     file_ignore_patterns = {},
     generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
     shorten_path = true,
@@ -51,6 +51,7 @@ require('telescope').setup{
     },
     color_devicons = true,
     use_less = false,
+    scroll_strategy = 'cycle',
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default { }, currently unsupported for shells like cmd.exe / powershell.exe
   }
 }

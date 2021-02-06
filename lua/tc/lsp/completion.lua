@@ -1,35 +1,38 @@
 -- completion.nvim
-vim.g.completion_enable_snippet = "UltiSnips"
-vim.g.completion_matching_smart_case = 1
-vim.g.completion_chain_complete_list = {
-    default = {
-      default = {
-        {complete_items = {"lsp", "snippet"}},
-        {mode = "<c-n>"},
-        {mode = "<c-p>"},
-      }
-    }
-}
-vim.g.completion_enable_auto_paren = true
-vim.g.completion_trigger_keyword_length = 0
-vim.g.completion_trigger_character = {'.', '::'}
+-- vim.g.completion_enable_snippet = "UltiSnips"
+-- vim.g.completion_matching_smart_case = 1
+-- vim.g.completion_chain_complete_list = {
+--     default = {
+--       default = {
+--         {complete_items = {"lsp", "snippet"}},
+--         {mode = "<c-n>"},
+--         {mode = "<c-p>"},
+--       },
+--       string = {
+--         {mode = 'file'}
+--       }
+--     }
+-- }
+-- vim.g.completion_enable_auto_paren = true
+-- vim.g.completion_trigger_keyword_length = 2
+-- vim.g.completion_trigger_character = {'.', '::'}
 
-vim.g.completion_customize_lsp_label = {
-    Function = " [function]",
-    Method = " [method]",
-    Reference = " [refrence]",
-    Enum = " [enum]",
-    Field = "ﰠ [field]",
-    Keyword = " [key]",
-    Variable = " [variable]",
-    Folder = " [folder]",
-    Snippet = " [snippet]",
-    Operator = " [operator]",
-    Module = " [module]",
-    Text = "ﮜ[text]",
-    Class = " [class]",
-    Interface = " [interface]"
-}
+-- vim.g.completion_customize_lsp_label = {
+--     Function = " [function]",
+--     Method = " [method]",
+--     Reference = " [refrence]",
+--     Enum = " [enum]",
+--     Field = "ﰠ [field]",
+--     Keyword = " [key]",
+--     Variable = " [variable]",
+--     Folder = " [folder]",
+--     Snippet = " [snippet]",
+--     Operator = " [operator]",
+--     Module = " [module]",
+--     Text = "ﮜ[text]",
+--     Class = " [class]",
+--     Interface = " [interface]"
+-- }
 
 -- Nvim-lsputils stuff
 vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
@@ -43,3 +46,52 @@ vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handle
 vim.g.UltiSnipsExpandTrigger="<tab>"
 vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
 vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
+
+
+local remap = vim.api.nvim_set_keymap
+
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 2;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    vsnip = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    spell = true;
+    tags = true;
+    snippets_nvim = true;
+    ultisnips = true;
+  };
+}
+
+vim.api.nvim_exec(
+[[
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+]],
+true
+)
+
+-- cycle tab or insert tab depending on prev char
+remap(
+  'i', '<Tab>',
+  table.concat{
+    'pumvisible() ? "<C-n>" : v:lua.Util.check_backspace()',
+    '? "<Tab>" : compe#confirm()',
+  },
+  { silent = true, noremap = true, expr = true }
+)
+
+remap('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { noremap = true, expr = true })
+remap('i', '<C-Space>', 'compe#complete()', { noremap = true, expr = true, silent = true })

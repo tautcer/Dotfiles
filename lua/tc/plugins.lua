@@ -35,14 +35,19 @@ return require('packer').startup {
     use 'windwp/nvim-autopairs'
     use 'tpope/vim-commentary'
     use 'simnalamburt/vim-mundo'
+
     -- Markdown
     use 'vim-pandoc/vim-pandoc'
     use 'vim-pandoc/vim-pandoc-syntax'
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
-    use {'ms-jpq/chadtree'}
+
+    -- Navigation
+    -- use {'ms-jpq/chadtree'}
+    use {'kyazdani42/nvim-tree.lua'}
 
     -- Git
     use 'airblade/vim-gitgutter'
+    use {'tpope/vim-fugitive'}
 
     -- Theme
     use 'kyazdani42/nvim-web-devicons'
@@ -53,8 +58,9 @@ return require('packer').startup {
     use 'brooth/far.vim'
 
     -- JS, TS, HTML and CSS plugins
-    use { 'prettier/vim-prettier', run = 'yarn install' }
+    -- use { 'prettier/vim-prettier', run = 'yarn install' }
     use 'mattn/emmet-vim'
+    use {'mhartington/formatter.nvim'}
 
     -- Fzf
     use {'junegunn/fzf'}
@@ -62,18 +68,18 @@ return require('packer').startup {
 
     -- Lsp
     use {'neovim/nvim-lspconfig'}
-    use {'nvim-lua/completion-nvim'}
-    use {'steelsojka/completion-buffers'}
+    -- use {'nvim-lua/completion-nvim'}
+    -- use {'steelsojka/completion-buffers'}
     use {'nvim-lua/lsp-status.nvim'}
     use {'norcalli/nvim-colorizer.lua'}
     use {'RishabhRD/popfix'}
     use {'RishabhRD/nvim-lsputils'}
+    use {'hrsh7th/nvim-compe'}
 
     -- Snippets
     use {'honza/vim-snippets'}
     use {'SirVer/ultisnips'}
     use {'voldikss/vim-floaterm'}
-    use {'tpope/vim-fugitive'}
 
     -- Telescope
     use {
@@ -82,7 +88,6 @@ return require('packer').startup {
     }
 
     -- Misc
-    use {'unblevable/quick-scope'}
     use {'matze/vim-move'}
     use {'zhimsel/vim-stay'}
     -- Documentation builder, really useful for TS and Python

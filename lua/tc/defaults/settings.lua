@@ -7,8 +7,6 @@ local function opt(scope, key, value)
 end
 
 vim.g.mapleader = ' '
--- vim.g.completeopt = 'menuone,noinsert,noselect'
--- vim.g.shortmess = 'c'
 
 opt('g', 'redrawtime', 10000)
 opt('g', 'lazyredraw', true)
@@ -59,6 +57,7 @@ vim.o.shortmess = vim.o.shortmess .. 'c'
 -- vim.o.dir = '/home/unitato/.config/nvim/swap/'
 -- vim.o.undodir = '/home/unitato/.config/nvim/undo/'
 -- maintain undo history between sessions
+vim.o.completeopt = "menu,menuone,noselect"
 vim.cmd(
 	[[
 		set undofile

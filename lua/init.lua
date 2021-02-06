@@ -6,6 +6,8 @@ require 'tc.utils.remaps'
 
 require 'tc.utils.events'
 
+require 'tc.utils.util'
+
 require 'tc.defaults'
 
 require 'tc.buffer.remaps'
@@ -16,7 +18,7 @@ require 'tc.fzf'
 
 require 'tc.lsp'
 
-require 'tc.chad-tree'
+require 'tc.nvim-tree'
 
 require 'tc.emmet'
 
@@ -31,3 +33,5 @@ require 'tc.telescope'
 require 'tc.autopairs'
 
 require 'tc.floaterm'
+
+require 'tc.formatter'
