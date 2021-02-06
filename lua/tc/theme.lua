@@ -1,3 +1,4 @@
+local set_hl = require"tc.utils.util".set_hl
 vim.cmd('syntax on')
 
 -- colorscheme
@@ -18,3 +19,5 @@ vim.g.gruvbox_number_column = 'dark0_hard'
 
 vim.cmd('highlight ColorColumn ctermbg=0 guibg=lightgrey')
 vim.cmd('highlight SignColumn guibg=#282828')
+-- italicize comments
+set_hl('Comment', { gui = 'italic' })

@@ -51,16 +51,16 @@ opt('o', 'undofile', true)
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
 opt('o', 'dir', '/home/unitato/.config/nvim/swap/')
 opt('o', 'undodir', '/home/unitato/.config/nvim/undo/')
-vim.o.shortmess = vim.o.shortmess .. 'c'
+opt('o', 'shortmess', 'csa')
+opt('o', 'listchars', 'tab:»\\ ')
 
--- Permanent undo
--- vim.o.dir = '/home/unitato/.config/nvim/swap/'
--- vim.o.undodir = '/home/unitato/.config/nvim/undo/'
--- maintain undo history between sessions
-vim.o.completeopt = "menu,menuone,noselect"
 vim.cmd(
 	[[
-		set undofile
+    set dir=~/.config/nvim/swap/
+    set backup
+    set backupdir=~/.config/nvim/backup/
+    set undofile
+    set undodir=~/.config/nvim/undo/
 	]]
 )
 
@@ -73,3 +73,7 @@ vim.api.nvim_exec([[
  autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
  highlight! link mkdLineBreak NONE
 ]], '')
+
+-- Specifies python and node provider path to make startup faster
+vim.g.pymode_python = 'python3'
+vim.g.python3_host_prog = '/home/unitato/.pyenv/shims/python3'

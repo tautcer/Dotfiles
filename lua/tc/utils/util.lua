@@ -33,6 +33,7 @@ end
 -- preview file using xdg_open
 Util.xdg_open = function()
   local filename = vim.fn.expand("<cfile>")
+  P(filename)
   vim.loop.spawn("xdg-open", {args = {filename}})
 end
 
