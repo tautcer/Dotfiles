@@ -19,8 +19,6 @@ mapall('L', '$')
 
 nnoremap('j', 'jzz')
 nnoremap('k', 'kzz')
-nnoremap('<Down>', 'jzz')
-nnoremap('<UP>', 'kzz')
 nnoremap('<leader>h', '<cmd>noh<cr>')
 nnoremap('<leader>w', '<cmd>w<cr>')
 nnoremap('<C-J>', '<C-W>j')
@@ -38,3 +36,10 @@ inoremap('<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
 inoremap('<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 vnoremap('p', ':<C-U>let @p = @+<CR>gvp:let @+ = @p<CR>', {expr = true})
+
+-- resize buffer easier
+nnoremap("<Left>", "<cmd>vertical resize +2<cr>")
+nnoremap("<Right>", "<cmd>vertical resize -2<cr>")
+nnoremap("<Up>", "<cmd>resize +2<cr>")
+nnoremap("<Down>", "<cmd>resize -2<cr>")
+nnoremap("gx", "<cmd>lua Util.xdg_open()<cr>", { silent = true })
