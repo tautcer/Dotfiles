@@ -47,8 +47,8 @@ vim.g.UltiSnipsExpandTrigger="<tab>"
 vim.g.UltiSnipsJumpForwardTrigger="<c-j>"
 vim.g.UltiSnipsJumpBackwardTrigger="<c-k>"
 
-
 local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
 
 require'compe'.setup {
   enabled = true;
@@ -74,14 +74,19 @@ require'compe'.setup {
   };
 }
 
-vim.api.nvim_exec(
-[[
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-]],
-true
-)
+Util.trigger_completion = function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      return vim.fn["compe#confirm"]()
+    end
+
+    vim.fn.nvim_select_popupmenu_item(0 , false , false ,{})
+    P(vim.fn["compe#confirm"]())
+    return vim.fn["compe#confirm"]()
+  end
+
+  return npairs.check_break_line_char()
+end
 
 -- cycle tab or insert tab depending on prev char
 remap(
