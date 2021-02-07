@@ -2,7 +2,7 @@ local npairs = require('nvim-autopairs')
 local remap = vim.api.nvim_set_keymap
 
 npairs.setup{
-  break_line_filetype = nil, -- enable this rule for all filetypes
+  break_line_filetype = true, -- enable this rule for all filetypes
   pairs_map = {
     ["'"] = "'",
     ['"'] = '"',

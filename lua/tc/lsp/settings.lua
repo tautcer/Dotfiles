@@ -123,7 +123,7 @@ local servers = {
           },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = {'vim', 'nnoremap', 'nmap', 'inoremap', 'vnoremap', 'cnoremap'},
+                globals = {'vim', 'nnoremap', 'nmap', 'inoremap', 'vnoremap', 'cnoremap', 'Util'},
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files

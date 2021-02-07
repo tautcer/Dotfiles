@@ -1,3 +1,4 @@
+local set_hl = require"tc.utils.util".set_hl
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo, g = vim.g}
 local indent = 2
 
@@ -53,6 +54,7 @@ opt('o', 'dir', '/home/unitato/.config/nvim/swap/')
 opt('o', 'undodir', '/home/unitato/.config/nvim/undo/')
 opt('o', 'shortmess', 'csa')
 opt('o', 'listchars', 'tab:»\\ ')
+opt('o', 'background', 'dark')
 
 vim.cmd(
 	[[
@@ -64,9 +66,10 @@ vim.cmd(
 	]]
 )
 
-vim.api.nvim_command [[ 
-  syntax enable 
-]]
+vim.cmd('syntax on')
+set_hl('ColorColumn', { bg = '#3C3836' })
+set_hl('SignColumn', { bg = 'NONE' })
+set_hl('Comment', { gui = 'italic' })
 
 vim.api.nvim_exec([[
  autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')

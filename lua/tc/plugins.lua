@@ -58,7 +58,6 @@ return require('packer').startup {
 
     -- JS, TS, HTML and CSS plugins
     use 'mattn/emmet-vim'
-    use {'mhartington/formatter.nvim'}
 
     -- Fzf
     use {'junegunn/fzf'}

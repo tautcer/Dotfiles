@@ -96,7 +96,6 @@ Util.get_visual = function()
   return lines
 end
 
--- TODO: convert this using extmarks
 Util.convert_color = function(mode)
   local result
 
@@ -129,12 +128,12 @@ Util.set_hl = function(group, options)
 
   if not link then
     vim.cmd(string.format(
-      'hi %s %s %s %s',
+      'highlight %s %s %s %s',
       group, bg, fg, gui
     ))
   else
     vim.cmd(string.format(
-      'hi! link', group, target
+      'highlight! link', group, target
     ))
   end
 end
