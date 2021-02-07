@@ -11,13 +11,6 @@ tools:
     lint-formats:
       - "%f:%l:%c: %m"
 
-  misspell: &misspell
-    lint-command: "misspell"
-    lint-ignore-exit-code: true
-    lint-stdin: true
-    lint-formats:
-      - "%f:%l:%c: %m"
-
   eslint_d: &eslint_d
     lint-command: 'eslint_d -f unix --stdin --stdin-filename ${INPUT}'
     lint-stdin: true
@@ -28,8 +21,9 @@ tools:
     format-stdin: true
 
   prettier: &prettier
-    lint-command: "npx prettier"
-    format-command: "npx prettier"
+    lint-command: "npx prettier --config ~/.config/nvim/.prettierrc --stdin-filepath ${INPUT}"
+    format-command: "npx prettier --config ~/.config/nvim/.prettierrc --stdin-filepath ${INPUT}"
+    format-stdin: true
 
   golint: &golint
     lint-command: "golint"
@@ -78,60 +72,43 @@ tools:
 languages:
   vim:
     - <<: *vim-vint
-    - <<: *misspell
   javascript:
     - <<: *eslint_d
     - <<: *prettier
-    - <<: *misspell
   typescript:
-    - <<: *eslint_d
     - <<: *prettier
-    - <<: *misspell
+    - <<: *eslint_d
   javascriptreact:
     - <<: *eslint_d
     - <<: *prettier
-    - <<: *misspell
   typescriptreact:
     - <<: *eslint_d
     - <<: *prettier
-    - <<: *misspell
   yaml:
     - <<: *yaml-yamllint
     - <<: *prettier
-    - <<: *misspell
   json:
     - <<: *prettier
-    - <<: *misspell
   html:
     - <<: *prettier
-    - <<: *misspell
   scss:
     - <<: *prettier
-    - <<: *misspell
   css:
     - <<: *prettier
-    - <<: *misspell
   markdown:
     - <<: *prettier
-    - <<: *misspell
   go:
     - <<: *goimports
     - <<: *golint
-    - <<: *misspell
   python:
     - <<: *black
     - <<: *isort
     - <<: *flake8
-    - <<: *misspell
   tf:
     - <<: *terraform
-    - <<: *misspell
   lua:
     - <<: *luafmt
-    - <<: *misspell
   sh:
     - <<: *shellcheck
-    - <<: *misspell
   pandoc:
     - <<: *prettier
-    - <<: *misspell

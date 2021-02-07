@@ -28,15 +28,7 @@ local function on_attach(client)
     map('n', '<leader>ao', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     map('n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     map('n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-    map('n', '<Leader>ff', '<cmd>Format<cr>')
-
-    if client.resolved_capabilities.document_formatting then
-        vim.api.nvim_command [[augroup Format]]
-        vim.api.nvim_command [[autocmd! * <buffer>]]
-        vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
-        vim.api.nvim_command [[augroup END]]
-        vim.api.nvim_command [[ autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics() ]]
-    end
+    map('n', '<Leader>ff', '<cmd>lua vim.lsp.buf.formatting()<cr>')
 end
 --
 -- using tab for navigating in completion
@@ -65,50 +57,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --   return vim.lsp.handlers["textDocument/publishDiagnostics"](_, _, result, client_id)
 -- end
 
-require'lspconfig'.diagnosticls.setup{
-  filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "css"},
-  root_dir = function(fname)
-    return util.root_pattern("tsconfig.json")(fname) or
-    util.root_pattern(".eslintrc.js")(fname);
-  end,
-  init_options = {
-    linters = {
-      eslint = {
-        command = "/usr/local/bin/eslint_d",
-        rootPatterns = {".eslintrc.js", ".git"},
-        debounce = 100,
-        args = {
-          "--stdin",
-          "--stdin-filename",
-          "%filepath",
-          "--format",
-          "json"
-        },
-        sourceName = "eslint",
-        parseJson = {
-          errorsRoot = "[0].messages",
-          line = "line",
-          column = "column",
-          endLine = "endLine",
-          endColumn = "endColumn",
-          message = "[eslint] ${message} [${ruleId}]",
-          security = "severity"
-        },
-        securities = {
-          [2] = "error",
-          [1] = "warning"
-        }
-      },
-    },
-    filetypes = {
-      javascript = "eslint",
-      typescript = "eslint",
-      javascriptreact = "eslint",
-      typescriptreact = "eslint"
-    }
-  }
-}
-
 local servers = {
   bashls = {},
   vimls = {},
@@ -124,6 +72,10 @@ local servers = {
   },
 
   jsonls = {},
+  efm = {
+    init_options = { documentFormatting = true },
+    filetypes = { 'typescript' }
+  },
 
   tsserver = {
     cmd = { "typescript-language-server", "--stdio" },
