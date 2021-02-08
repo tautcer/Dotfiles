@@ -46,6 +46,7 @@ vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handle
 
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
+local protocol = require('vim.lsp.protocol')
 
 require'compe'.setup {
   enabled = true;
@@ -96,3 +97,31 @@ remap(
 
 remap('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { noremap = true, expr = true })
 remap('i', '<C-Space>', 'compe#complete()', { noremap = true, expr = true, silent = true })
+
+protocol.CompletionItemKind = {
+  ' Text';        -- = 1
+  'ƒ Method';      -- = 2;
+  ' Function';    -- = 3;
+  ' Constructor'; -- = 4;
+  'ƒ Field';         -- = 5;
+  ' Variable';    -- = 6;
+  ' Class';       -- = 7;
+  'ﰮ Interface';   -- = 8;
+  ' Module';      -- = 9;
+  ' Property';    -- = 10;
+  ' Unit';        -- = 11;
+  ' Value';       -- = 12;
+  '了Enum';        -- = 13;
+  ' Keyword';     -- = 14;
+  '﬌ Snippet';     -- = 15;
+  ' Color';       -- = 16;
+  ' File';        -- = 17;
+  'Reference';     -- = 18;
+  ' Folder';      -- = 19;
+  ' EnumMember';  -- = 20;
+  ' Constant';    -- = 21;
+  ' Struct';      -- = 22;
+  'Event';         -- = 23;
+  'Operator';      -- = 24;
+  'TypeParameter'; -- = 25;
+}
