@@ -27,14 +27,14 @@ end
 
 return require('packer').startup {
   function(use)
-        -- Packer can manage itself as an optional plugin
+    -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
     use 'itchyny/lightline.vim'
     use 'edkolev/tmuxline.vim'
     use 'windwp/nvim-autopairs'
-    use 'tpope/vim-commentary'
     use 'simnalamburt/vim-mundo'
+    use 'b3nj5m1n/kommentary'
 
     -- Markdown
     use 'vim-pandoc/vim-pandoc'

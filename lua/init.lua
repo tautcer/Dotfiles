@@ -34,4 +34,6 @@ require 'tc.autopairs'
 
 require 'tc.floaterm'
 
+require 'tc.kommentary'
+
 -- require 'tc.formatter'
