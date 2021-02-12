@@ -1,5 +1,4 @@
 vim.g.lightline = {
-     colorscheme = 'gruvbox',
      active = {
        left =  {
          { 'mode', 'pastfugitive#heade' },

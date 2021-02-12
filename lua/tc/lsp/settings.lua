@@ -56,6 +56,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 --   return vim.lsp.handlers["textDocument/publishDiagnostics"](_, _, result, client_id)
 -- end
+local project_library_path = "/usr/local/lib/node_modules/@angular/language-server/index.js"
+local cmd = {"ngserver", "--stdio", "--tsProbeLocations", project_library_path , "--ngProbeLocations", project_library_path}
 
 local servers = {
   bashls = {},
@@ -74,7 +76,6 @@ local servers = {
   jsonls = {},
   efm = {
     init_options = { documentFormatting = true },
-    filetypes = { 'typescript' }
   },
 
   tsserver = {
@@ -86,11 +87,14 @@ local servers = {
     -- },
   },
 
-  -- angularls = {
-  --   cmd = { "node_modules/@angular/language-server/index.js" },
-  --   filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" }
-  -- },
-
+  angularls = {
+    cmd = cmd,
+    filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
+    on_new_config = function(new_config, new_root_dir) 
+      new_config.cmd = cmd
+    end
+  },
+      
   html = {
     capabilities = capabilities,
   },
