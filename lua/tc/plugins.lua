@@ -27,7 +27,7 @@ end
 
 return require('packer').startup {
   function(use)
-    -- Packer can manage itself as an optional plugin
+        -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
     use 'itchyny/lightline.vim'

@@ -79,4 +79,4 @@ vim.api.nvim_exec([[
 
 -- Specifies python and node provider path to make startup faster
 vim.g.pymode_python = 'python3'
-vim.g.python3_host_prog = '/home/unitato/.pyenv/shims/python3'
+vim.g.python3_host_prog = '/usr/bin/python3.9'
