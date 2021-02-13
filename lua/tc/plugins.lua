@@ -52,6 +52,7 @@ return require('packer').startup {
     use 'kyazdani42/nvim-web-devicons'
     use 'gruvbox-community/gruvbox'
     use 'nvim-treesitter/nvim-treesitter'
+    use 'ghifarit53/tokyonight-vim'
 
     -- Find and replace
     use 'brooth/far.vim'

@@ -1,27 +1,30 @@
 local lsp = require('lspconfig')
 local lsp_status  = require('lsp-status')
 local util = require 'lspconfig/util'
-local is_cfg_present = require("tc.utils.util").is_cfg_present
+-- local is_cfg_present = require("tc.utils.util").is_cfg_present
 
 local map = function(type, key, value)
 	vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
 end
 local function on_attach(client)
     lsp_status.on_attach(client)
-    -- lsp_completion.on_attach(client)
 
     -- use omnifunc
     vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
     map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+
+    map('n', 'gr', "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
     map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
     map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
     map('n', '<leader>gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
     map('n', '<leader>gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-    map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+
+    map('n', '<leader>ca', "<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>")
+    map('v', '<leader>ca', "<cmd>lua require('telescope.builtin').lsp_range_code_actions({ timeout = 1000 })<CR>")
+
     map('n', '<leader>ee', '<cmd>lua vim.lsp.diagnostics.show_line_diagnostics()<CR>')
     map('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
     map('n', '<leader>ai', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
@@ -29,6 +32,7 @@ local function on_attach(client)
     map('n', 'g[', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     map('n', 'g]', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
     map('n', '<Leader>ff', '<cmd>lua vim.lsp.buf.formatting()<cr>')
+
 end
 --
 -- using tab for navigating in completion
@@ -85,11 +89,6 @@ local servers = {
     --   ["textDocument/publishDiagnostics"] = is_using_eslint
     -- },
   },
-
-  -- angularls = {
-  --   cmd = { "node_modules/@angular/language-server/index.js" },
-  --   filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" }
-  -- },
 
   html = {
     capabilities = capabilities,
