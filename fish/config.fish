@@ -1,19 +1,22 @@
 . ~/.config/fish/aliases.fish
 
 set -gx EDITOR nvim
-set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin $HOME/.pyenv/bin $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin /home/unitato/.dotnet/tools
+set -gx VISUAL nvim
+set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin $HOME/.pyenv/bin $HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin /home/$USER/.dotnet/tools
 
 # add the go bin path to be able to execute our programs
 set -x GOPATH /home/unitato/go
 set -x PATH $PATH /usr/local/go/bin $GOPATH/bin
 set -x fish_user_paths $HOME/.pyenv
 set -x fish_user_paths $PYENV_ROOT/bin:$PATH
+set -x fish_user_paths ~/.deno/bin
+
 
 set PYENV_ROOT $HOME/.pyenv
 set -x PATH "/home/unitato/.pyenv/bin" $PATH
 status --is-interactive; and pyenv init - | source
 set -x VIRTUAL_ENV_DISABLE_PROMPT 0
-set -x JAVA_HOME "/home/unitato/dev/jdk-13.0.2"
+set -x JAVA_HOME "/usr/lib/jvm/java-15-openjdk"
 set -U FZF_LEGACY_KEYBINDINGS 0
 set -U fish_key_bindings fish_default_key_bindings
 set PATH $HOME/.cargo/bin $PATH

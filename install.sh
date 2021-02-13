@@ -13,7 +13,7 @@ packages="\
     base-devel \
     neovim \
     git \
-    zsh \
+    fish \
     cmake \
     vlc \
     binutils \
@@ -74,10 +74,11 @@ ssh-keygen -t rsa -b 2048 -f $HOME/.ssh/id_rsa -N ''
 echo "Installing pyenv and PYTHON 3.6.4"
 sleep 1
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-echo -e 'if command -v pyenv 1>dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.zshrc
-source ~/.zshrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.config/fish/config.fish
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.config/fish/config.fish
+echo -e 'if command -v pyenv 1>dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.config/fish/config.fish
+
+source ~/.config/fish/config.fish
 pyenv install 3.6.4
 
 # Install YAY instead of yaourt since it doesn't work anymore
@@ -92,10 +93,3 @@ echo "Installing all the yay packages"
 sleep 1
 yaourt -Syu
 yaourt -S $yaypackages
-
-# Install vim-plug for neovim
-echo "Installing vim-plug"
-sleep 1
- ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
