@@ -2,7 +2,12 @@
 vim.g.nvim_tree_side = 'left'
 vim.g.nvim_tree_width = 50
 vim.g.nvim_tree_ignore = {
-  '.git', 'node_modules', '.cache', '.routify', 'dist', '.cache'
+  '.git',
+  'node_modules',
+  '.cache',
+  '.routify',
+  'dist',
+  '.cache',
 }
 vim.g.nvim_tree_auto_open = 0
 vim.g.nvim_tree_auto_close = 0
@@ -32,7 +37,7 @@ vim.g.nvim_tree_bindings = {
   copy = 'c',
   paste = 'p',
   prev_git_item = '[c',
-  next_git_item = ']c'
+  next_git_item = ']c',
 }
 
 -- default will show icon by default if no icon is provided
@@ -42,12 +47,12 @@ vim.g.nvim_tree_icons = {
   symlink = '',
 
   git = {
-    unstaged = "✗",
-    staged = "✓",
-    unmerged = "",
-    renamed = "➜",
-    untracked = "★"
+    unstaged = '✗',
+    staged = '✓',
+    unmerged = '',
+    renamed = '➜',
+    untracked = '★',
   },
 
-  folder = {default = "", open = " "}
+  folder = {default = '', open = ' '},
 }

@@ -54,7 +54,7 @@ tools:
     format-stdin: true
 
   luafmt: &luafmt
-    format-command: "luafmt --stdin"
+    format-command: "lua-format -c ~/.config/nvim/lua_format.yaml -i"
     format-stdin: true
 
   shellcheck: &shellcheck

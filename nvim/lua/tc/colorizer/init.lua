@@ -1,1 +1,1 @@
-require'tc.colorizer.settings'
+require 'tc.colorizer.settings'

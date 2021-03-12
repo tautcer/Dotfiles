@@ -1,4 +1,4 @@
-local Job = require("plenary.job")
+local Job = require('plenary.job')
 
 Util = {}
 
@@ -9,7 +9,7 @@ Util.check_backspace = function()
   local is_first_col = vim.fn.col('.') - 1 == 0
   local prev_char = vim.fn.getline('.'):sub(curr_col - 1, curr_col - 1)
 
-  if is_first_col or prev_char:match("%s") then
+  if is_first_col or prev_char:match('%s') then
     return true
   else
     return false
@@ -32,8 +32,8 @@ end
 
 -- preview file using xdg_open
 Util.xdg_open = function()
-  local filename = vim.fn.expand("<cfile>")
-  vim.loop.spawn("xdg-open", {args = {filename}})
+  local filename = vim.fn.expand('<cfile>')
+  vim.loop.spawn('xdg-open', {args = {filename}})
 end
 
 local to_rgb = function(hex)
@@ -42,53 +42,52 @@ local to_rgb = function(hex)
   if #hex == 9 then
     _, red, green, blue, alpha = hex:match('(.)(..)(..)(..)(..)')
     return string.format(
-      'rgba(%s, %s, %s, %s)',
-      tonumber("0x" .. red), tonumber("0x" .. green),
-      tonumber("0x" .. blue), tonumber("0x" .. alpha)
+      'rgba(%s, %s, %s, %s)', tonumber('0x' .. red), tonumber('0x' .. green),
+      tonumber('0x' .. blue), tonumber('0x' .. alpha)
     )
   end
 
   _, red, green, blue = hex:match('(.)(..)(..)(..)')
   return string.format(
-    'rgb(%s, %s, %s)',
-    tonumber("0x" .. red), tonumber("0x" .. green), tonumber("0x" .. blue)
+    'rgb(%s, %s, %s)', tonumber('0x' .. red), tonumber('0x' .. green),
+    tonumber('0x' .. blue)
   )
 end
 
 local to_hex = function(rgb)
   local red, green, blue, alpha
   if #rgb >= 16 then
-    red, green, blue, alpha = rgb:match("%((%d+),%s(%d+),%s(%d+),%s(%d+)")
+    red, green, blue, alpha = rgb:match('%((%d+),%s(%d+),%s(%d+),%s(%d+)')
     return string.format('#%x%x%x%x', red, green, blue, alpha)
   end
 
-  red, green, blue = rgb:match("%((%d+),%s(%d+),%s(%d+)")
+  red, green, blue = rgb:match('%((%d+),%s(%d+),%s(%d+)')
   return string.format('#%x%x%x', red, green, blue)
 end
 
 Util.get_word = function()
-  local first_line, last_line = vim.fn.getpos("'<")[2], vim.fn.getpos("'>")[2]
-  local first_col, last_col = vim.fn.getpos("'<")[3], vim.fn.getpos("'>")[3]
-  local current_word = vim.fn.getline(first_line, last_line)[1]:sub(first_col, last_col)
+  local first_line, last_line = vim.fn.getpos('\'<')[2], vim.fn.getpos('\'>')[2]
+  local first_col, last_col = vim.fn.getpos('\'<')[3], vim.fn.getpos('\'>')[3]
+  local current_word = vim.fn.getline(first_line, last_line)[1]:sub(
+    first_col, last_col
+  )
 
   return current_word
 end
 
 Util.get_lines = function()
-  local first_line, last_line = vim.fn.getpos("'<")[2], vim.fn.getpos("'>")[2]
+  local first_line, last_line = vim.fn.getpos('\'<')[2], vim.fn.getpos('\'>')[2]
   local lines = vim.fn.getline(first_line, last_line)
 
   return lines
 end
 
 Util.get_visual = function()
-  local first_line, last_line = vim.fn.getpos("'<")[2], vim.fn.getpos("'>")[2]
-  local first_col, last_col = vim.fn.getpos("'<")[3], vim.fn.getpos("'>")[3]
+  local first_line, last_line = vim.fn.getpos('\'<')[2], vim.fn.getpos('\'>')[2]
+  local first_col, last_col = vim.fn.getpos('\'<')[3], vim.fn.getpos('\'>')[3]
   local lines = vim.fn.getline(first_line, last_line)
 
-  if #lines == 0 then
-    return ""
-  end
+  if #lines == 0 then return '' end
 
   lines[#lines] = lines[#lines]:sub(0, last_col - 2)
   lines[1] = lines[1]:sub(first_col - 1, -1)
@@ -108,15 +107,17 @@ Util.convert_color = function(mode)
   vim.api.nvim_command(string.format('s/%s/%s', Util.get_word(), result))
 end
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+  [[
   command! -nargs=? -range=% ToRgb call v:lua.Util.convert_color('rgb')
   command! -nargs=? -range=% ToHex call v:lua.Util.convert_color('hex')
-]], true)
+]], true
+)
 
 Util.is_cfg_present = function(cfg_name)
   -- this returns 1 if it's not present and 0 if it's present
   -- we need to compare it with 1 because both 0 and 1 is `true` in lua
-  return vim.fn.empty(vim.fn.glob(vim.loop.cwd()..cfg_name)) ~= 1
+  return vim.fn.empty(vim.fn.glob(vim.loop.cwd() .. cfg_name)) ~= 1
 end
 
 Util.set_hl = function(group, options)
@@ -127,14 +128,9 @@ Util.set_hl = function(group, options)
   local target = options.target
 
   if not link then
-    vim.cmd(string.format(
-      'highlight %s %s %s %s',
-      group, bg, fg, gui
-    ))
+    vim.cmd(string.format('highlight %s %s %s %s', group, bg, fg, gui))
   else
-    vim.cmd(string.format(
-      'highlight! link', group, target
-    ))
+    vim.cmd(string.format('highlight! link', group, target))
   end
 end
 

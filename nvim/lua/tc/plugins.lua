@@ -43,6 +43,7 @@ return require('packer').startup {
 
     -- Navigation
     use {'kyazdani42/nvim-tree.lua'}
+    use {'ms-jpq/chadtree'}
 
     -- Git
     use 'airblade/vim-gitgutter'

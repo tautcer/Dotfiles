@@ -1,1 +1,2 @@
-nnoremap('<leader>ed', '<cmd>NvimTreeFindFile<cr>')
+-- TODO: remove this once NvimTree is working
+nnoremap('<leader>ed', '<cmd>CHADopen<cr>')
