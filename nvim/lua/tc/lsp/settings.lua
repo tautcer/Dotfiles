@@ -88,6 +88,7 @@ local servers = {
   jsonls = {},
   efm = {
     init_options = {documentFormatting = true},
+    root_dir = function() return vim.fn.getcwd() end;
     filetypes = {
       'lua',
       'typescript',
