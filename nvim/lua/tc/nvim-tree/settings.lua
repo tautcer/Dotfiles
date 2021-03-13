@@ -20,25 +20,8 @@ vim.g.nvim_tree_tab_open = 0
 vim.g.nvim_tree_show_icons = {git = 0, folders = 1, files = 1}
 
 -- Mappings for nvimtree
-vim.g.nvim_tree_bindings = {
-  edit = {'<CR>', 'o'},
-  edit_vsplit = '<C-v>',
-  edit_split = '<C-x>',
-  edit_tab = '<C-t>',
-  toggle_ignored = 'I',
-  toggle_dotfiles = 'H',
-  refresh = 'R',
-  preview = '<Tab>',
-  cd = '<Leader>d',
-  create = 'a',
-  remove = 'd',
-  rename = 'r',
-  cut = 'x',
-  copy = 'c',
-  paste = 'p',
-  prev_git_item = '[c',
-  next_git_item = ']c',
-}
+local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+vim.g.nvim_tree_bindings = {['<CR>'] = tree_cb('edit'), ['o'] = tree_cb('edit')}
 
 -- default will show icon by default if no icon is provided
 -- default shows no icon by default

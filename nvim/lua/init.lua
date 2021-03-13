@@ -20,6 +20,8 @@ require 'tc.lsp'
 
 require 'tc.nvim-tree'
 
+-- require 'tc.chad-tree'
+
 require 'tc.emmet'
 
 require 'tc.colorizer'
