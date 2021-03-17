@@ -21,7 +21,11 @@ vim.g.nvim_tree_show_icons = {git = 0, folders = 1, files = 1}
 
 -- Mappings for nvimtree
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-vim.g.nvim_tree_bindings = {['<CR>'] = tree_cb('edit'), ['o'] = tree_cb('edit')}
+vim.g.nvim_tree_bindings = {
+  ['<CR>'] = tree_cb('edit'),
+  ['o'] = tree_cb('edit'),
+  ['l'] = tree_cb('edit'),
+}
 
 -- default will show icon by default if no icon is provided
 -- default shows no icon by default

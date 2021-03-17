@@ -140,6 +140,7 @@ local servers = {
   },
 
   pyls = {filetypes = {'python'}},
+  pyright = {},
 
   sumneko_lua = {
     cmd = {

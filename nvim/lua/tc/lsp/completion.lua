@@ -17,7 +17,6 @@ vim.lsp.handlers['workspace/symbol'] =
   require'lsputil.symbols'.workspace_handler
 
 local remap = vim.api.nvim_set_keymap
-local npairs = require('nvim-autopairs')
 local protocol = require('vim.lsp.protocol')
 
 require'compe'.setup {
@@ -43,36 +42,6 @@ require'compe'.setup {
     ultisnips = true,
   },
 }
-
-Util.trigger_completion = function()
-  if vim.fn.pumvisible() ~= 0 then
-    if vim.fn.complete_info()['selected'] ~= -1 then
-      return vim.fn['compe#confirm']()
-    end
-
-    vim.fn.nvim_select_popupmenu_item(0, false, false, {})
-    return vim.fn['compe#confirm']()
-  end
-
-  return npairs.check_break_line_char()
-end
-
--- cycle tab or insert tab depending on prev char
-remap(
-  'i', '<Tab>', table.concat {
-    'pumvisible() ? "<C-n>" : v:lua.Util.check_backspace()',
-    '? "<Tab>" : compe#confirm()',
-  }, {silent = true, noremap = true, expr = true}
-)
-
-remap(
-  'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"',
-  {noremap = true, expr = true}
-)
-remap(
-  'i', '<C-Space>', 'compe#complete()',
-  {noremap = true, expr = true, silent = true}
-)
 
 protocol.CompletionItemKind = {
   ' Text', -- = 1
@@ -101,3 +70,19 @@ protocol.CompletionItemKind = {
   'Operator', -- = 24;
   'TypeParameter', -- = 25;
 }
+--  mappings
+remap('s', '<Tab>', 'v:lua.tab_complete()', {expr = true})
+remap('i', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
+remap('s', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
+remap('i', '<CR>', 'v:lua.completions()', {expr = true})
+
+function _G.completions()
+  local npairs = require('nvim-autopairs')
+  if vim.fn.pumvisible() == 1 then
+    if vim.fn.complete_info()['selected'] ~= -1 then
+      return vim.fn['compe#confirm']('<CR>')
+    end
+  end
+  return npairs.check_break_line_char()
+end
+
