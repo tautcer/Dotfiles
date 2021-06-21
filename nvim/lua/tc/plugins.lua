@@ -46,7 +46,7 @@ return require('packer').startup {
     use {'ms-jpq/chadtree'}
 
     -- Git
-    use 'airblade/vim-gitgutter'
+    use {'lewis6991/gitsigns.nvim'}
     use {'tpope/vim-fugitive'}
 
     -- Theme
@@ -84,6 +84,8 @@ return require('packer').startup {
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
 
+    use { 'camspiers/snap' }
+
     -- Misc
     use {'matze/vim-move'}
     use {'zhimsel/vim-stay'}
@@ -92,5 +94,6 @@ return require('packer').startup {
     use {'plasticboy/vim-markdown'}
     use {'airblade/vim-rooter'}
     use {'bling/vim-bufferline'}
+    use {'vimwiki/vimwiki'}
   end
 }

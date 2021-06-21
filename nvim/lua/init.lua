@@ -30,7 +30,9 @@ require 'tc.treesitter'
 
 require 'tc.filetypes'
 
-require 'tc.telescope'
+-- require 'tc.telescope'
+
+require 'tc.snap'
 
 require 'tc.autopairs'
 
@@ -39,3 +41,5 @@ require 'tc.floaterm'
 require 'tc.kommentary'
 
 -- require 'tc.formatter'
+
+require 'tc.gitsigns'
