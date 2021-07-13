@@ -8,3 +8,11 @@ vim.g.tokyonight_style = 'night'
 vim.g.tokyonight_enable_italic = false
 vim.g.tokyonight_disable_italic_comment = false
 vim.api.nvim_command [[ colorscheme tokyonight ]]
+
+-- require("github-theme").setup({
+--   commentStyle = "italic",
+--   hideInactiveStatusline = true,
+--   darkSidebar = false,
+--   darkFloat = true,
+--   themeStyle = "dark"
+-- })

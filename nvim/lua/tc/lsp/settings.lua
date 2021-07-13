@@ -64,17 +64,6 @@ local sumneko_binary =
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local project_library_path =
-  '/usr/local/lib/node_modules/@angular/language-server/index.js'
-local cmd = {
-  'ngserver',
-  '--stdio',
-  '--tsProbeLocations',
-  project_library_path,
-  '--ngProbeLocations',
-  project_library_path,
-}
-
 local servers = {
   bashls = {},
   vimls = {},
@@ -119,13 +108,6 @@ local servers = {
     capabilities = capabilities,
   },
 
-  -- angularls = {
-  --   cmd = cmd,
-  --   filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
-  --   on_new_config = function(new_config, new_root_dir)
-  --     new_config.cmd = cmd
-  --   end
-  -- },
   html = {capabilities = capabilities},
   cssls = {
     cmd = {'css-languageserver', '--stdio'},

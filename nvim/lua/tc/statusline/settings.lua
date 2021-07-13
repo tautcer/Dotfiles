@@ -1,47 +1,56 @@
-vim.g.lightline = {
-  colorscheme = 'tokyonight',
-  active = {
-    left = {
-      {'mode', 'pastfugitive#heade'},
-      {'gitbranch', 'readonly', 'filename', 'modified'},
-    },
-    right = {
-      {'lineinfo'},
-      {'fileformat', 'fileencoding', 'filetype'},
-      {'lsp_status'},
-    },
-  },
-  component = {lineinfo = '%3l=%-2v'},
-  component_function = {gitbranch = 'fugitive#head'},
-  component_expand = {lsp_status = 'LspStatus'},
-  component_visible_condition = {
-    lsp_status = 'not vim.tbl_isempty(vim.lsp.buf_get_clients(0))',
-  },
-  mode_map = {
-    n = 'N',
-    i = 'I',
-    R = 'R',
-    v = 'V',
-    V = 'VL',
-    ['<C-v>'] = 'VB',
-    c = 'C',
-    s = 'S',
-    S = 'SL',
-    ['<C-s>'] = 'SB',
-    t = 'T',
-  },
-  subseparator = {left = '\\uE0B5', right = '\\uE0B7'},
-  separator = {left = '', right = ''},
-}
+local function modify_mode_text(mode)
+  local instructions = {
+    ['NORMAL'] = 'N',
+    ['INSERT'] = 'I',
+    ['VISUAL'] = 'V',
+    ['V-LINE'] = 'VL',
+    ['V-BLOCK'] = 'VB',
+    ['SELECT'] = 'S',
+    ['S-LINE'] = 'SL',
+    ['S-BLOCK'] = 'SB',
+    ['REPLACE'] = 'R',
+    ['V-REPLACE'] = 'VR',
+    ['COMMAND'] = 'C',
+    ['EX'] = 'E',
+    ['MORE'] = 'M',
+    ['TERMINAL'] = 'T',
+  }
+  return instructions[mode]
+end
 
-vim.api.nvim_exec(
-  [[
-function! LspStatus() abort
-  if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-     return luaeval("require('lsp-status').status()")
-  else
-     return ''
-  endif
-endfunction
-]], true
-)
+require'lualine'.setup {
+  options = {
+    icons_enabled = true,
+    theme = 'gruvbox',
+    component_separators = {'', ''},
+    section_separators = {'', ''},
+    disabled_filetypes = {},
+    padding = 2,
+  },
+  sections = {
+    lualine_a = {{'mode', format = modify_mode_text}},
+    lualine_b = {'branch'},
+    lualine_c = {
+      {'filename', file_status = true, path = 1},
+      require('lsp-status').status,
+    },
+    lualine_x = {
+      {
+        'diagnostics',
+        sources = {'nvim_lsp'},
+        sections = {'error', 'warn', 'info', 'hint'},
+      },
+    },
+    lualine_y = {'progress'},
+    lualine_z = {'encoding', 'fileformat', 'filetype'},
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {},
+  },
+  extensions = {'fzf', 'fugitive'},
+}

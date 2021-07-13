@@ -30,7 +30,7 @@ return require('packer').startup {
         -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
-    use 'itchyny/lightline.vim'
+    -- use 'itchyny/lightline.vim'
     use 'edkolev/tmuxline.vim'
     use 'windwp/nvim-autopairs'
     use 'simnalamburt/vim-mundo'
@@ -43,7 +43,6 @@ return require('packer').startup {
 
     -- Navigation
     use {'kyazdani42/nvim-tree.lua'}
-    use {'ms-jpq/chadtree'}
 
     -- Git
     use {'lewis6991/gitsigns.nvim'}
@@ -54,6 +53,12 @@ return require('packer').startup {
     use 'gruvbox-community/gruvbox'
     use 'nvim-treesitter/nvim-treesitter'
     use 'ghifarit53/tokyonight-vim'
+    use 'projekt0n/github-nvim-theme'
+
+    use {
+      'hoob3rt/lualine.nvim',
+      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
 
     -- Find and replace
     use 'brooth/far.vim'
