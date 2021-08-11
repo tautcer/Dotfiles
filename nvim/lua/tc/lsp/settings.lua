@@ -163,7 +163,7 @@ local servers = {
   },
 }
 
-for server, config in pairs(servers) do
+for server, config in ipairs(servers) do
   lsp[server].setup(
     vim.tbl_deep_extend('force', default_lsp_config, config, capabilities)
   )
