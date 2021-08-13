@@ -1,4 +1,6 @@
-backup/
-swap/
-undo
-spell/
+**/backup/**
+**/swap/**
+**/undo/**
+**/spell/**
+**/UltiSnips/**
+**/plugin/**
