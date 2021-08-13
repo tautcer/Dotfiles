@@ -21,11 +21,11 @@ end
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'gruvbox',
-    component_separators = {'', ''},
-    section_separators = {'', ''},
+    theme = "gruvbox_material",
+    section_separators = { "", "" },
+    component_separators = { "", "" },
     disabled_filetypes = {},
-    padding = 2,
+    padding = 1,
   },
   sections = {
     lualine_a = {{'mode', format = modify_mode_text}},

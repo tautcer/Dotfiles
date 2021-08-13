@@ -99,6 +99,5 @@ return require('packer').startup {
     use {'plasticboy/vim-markdown'}
     use {'airblade/vim-rooter'}
     use {'bling/vim-bufferline'}
-    use {'vimwiki/vimwiki'}
   end
 }

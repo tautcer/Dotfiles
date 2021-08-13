@@ -1,6 +1,7 @@
-local lsp = require('lspconfig')
+local nvim_lsp = require('lspconfig')
 local lsp_status = require('lsp-status')
 local util = require 'lspconfig/util'
+local home = os.getenv("HOME")
 
 local map = function(type, key, value)
   vim.api.nvim_buf_set_keymap(
@@ -55,12 +56,8 @@ imap <S-Tab> <Plug>(completion_smart_s_tab)
 
 lsp_status.register_progress()
 
-local default_lsp_config = {
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities,
-}
 local sumneko_binary =
-  '/home/unitato/Projects/lua-language-server/bin/Linux/lua-language-server'
+  home .. '/Projects/lua-language-server/bin/Linux/lua-language-server'
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -69,11 +66,8 @@ local servers = {
   vimls = {},
   dockerls = {},
   yamlls = {},
-
   rust_analyzer = {filetypes = {'rust'}},
-
   rls = {filetypes = {'rust'}},
-
   jsonls = {},
   efm = {
     init_options = {documentFormatting = true},
@@ -94,7 +88,6 @@ local servers = {
       'css',
     },
   },
-
   tsserver = {
     cmd = {'typescript-language-server', '--stdio'},
     filetypes = {
@@ -107,7 +100,6 @@ local servers = {
     },
     capabilities = capabilities,
   },
-
   html = {capabilities = capabilities},
   cssls = {
     cmd = {'css-languageserver', '--stdio'},
@@ -120,16 +112,15 @@ local servers = {
       less = {validate = true},
     },
   },
-
-  pyls = {filetypes = {'python'}},
+  -- pyls = {filetypes = {'python'}},
   pyright = {},
-
   sumneko_lua = {
     cmd = {
       sumneko_binary,
       '-E',
-      '/home/unitato/Projects/lua-language-server/main.lua',
+      home .. '/Projects/lua-language-server/main.lua',
     },
+    filetypes = {"lua"},
     capabilities = capabilities,
     settings = {
       Lua = {
@@ -163,8 +154,26 @@ local servers = {
   },
 }
 
-for server, config in ipairs(servers) do
-  lsp[server].setup(
-    vim.tbl_deep_extend('force', default_lsp_config, config, capabilities)
-  )
+local setup_server = function(server, config)
+  if not config then
+    return
+  end
+
+  if type(config) ~= "table" then
+    config = {}
+  end
+
+  config = vim.tbl_deep_extend("force", {
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+    flags = {
+      debounce_text_changes = 50,
+    },
+  }, config)
+
+  nvim_lsp[server].setup(config)
+end
+
+for server, config in pairs(servers) do
+  setup_server(server, config)
 end

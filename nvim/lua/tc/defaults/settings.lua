@@ -1,6 +1,7 @@
 local set_hl = require'tc.utils.util'.set_hl
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo, g = vim.g}
 local indent = 2
+local home = os.getenv("HOME")
 
 local function opt(scope, key, value)
   scopes[scope][key] = value
@@ -47,11 +48,11 @@ opt('o', 'showmode', true)
 opt('o', 'showcmd', true)
 opt('o', 'encoding', 'UTF-8')
 opt('o', 'backspace', 'indent,eol,start')
-opt('o', 'cmdheight', 2)
+opt('o', 'cmdheight', 1)
 opt('o', 'undofile', true)
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
-opt('o', 'dir', '/home/unitato/.config/nvim/swap/')
-opt('o', 'undodir', '/home/unitato/.config/nvim/undo/')
+opt('o', 'dir', home .. '/.config/nvim/swap/')
+opt('o', 'undodir', home .. '/.config/nvim/undo/')
 opt('o', 'shortmess', 'csa')
 opt('o', 'listchars', 'tab:»\\ ')
 opt('o', 'background', 'dark')
