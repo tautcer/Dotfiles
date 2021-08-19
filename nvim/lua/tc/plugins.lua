@@ -2,32 +2,30 @@
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 
 if not packer_exists then
-  if vim.fn.input("Download Packer? (y for yes)") ~= "y" then
-    return
-  end
+  if vim.fn.input('Download Packer? (y for yes)') ~= 'y' then return end
 
   local directory = string.format(
-    '%s/site/pack/packer/opt/',
-    vim.fn.stdpath('data')
+    '%s/site/pack/packer/opt/', vim.fn.stdpath('data')
   )
 
   vim.fn.mkdir(directory, 'p')
 
-  local out = vim.fn.system(string.format(
-    'git clone %s %s',
-    'https://github.com/wbthomason/packer.nvim',
-    directory .. '/packer.nvim'
-  ))
+  local out = vim.fn.system(
+    string.format(
+      'git clone %s %s', 'https://github.com/wbthomason/packer.nvim',
+      directory .. '/packer.nvim'
+    )
+  )
 
   print(out)
-  print("Downloading packer.nvim...")
+  print('Downloading packer.nvim...')
 
   return
 end
 
 return require('packer').startup {
   function(use)
-        -- Packer can manage itself as an optional plugin
+    -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
     -- use 'itchyny/lightline.vim'
@@ -57,7 +55,7 @@ return require('packer').startup {
 
     use {
       'hoob3rt/lualine.nvim',
-      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+      requires = {'kyazdani42/nvim-web-devicons', opt = true},
     }
 
     -- Find and replace
@@ -68,7 +66,7 @@ return require('packer').startup {
 
     -- Fzf
     use {'junegunn/fzf'}
-    use {'junegunn/fzf.vim'}  -- to enable preview (optional)
+    use {'junegunn/fzf.vim'} -- to enable preview (optional)
 
     -- Lsp
     use {'neovim/nvim-lspconfig'}
@@ -78,6 +76,11 @@ return require('packer').startup {
     use {'RishabhRD/nvim-lsputils'}
     use {'hrsh7th/nvim-compe'}
 
+    --  This is the main one
+    use {'ms-jpq/coq_nvim', branch = 'coq'}
+    --  9000+ Snippets
+    use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
+
     -- Snippets
     use {'honza/vim-snippets'}
     use {'SirVer/ultisnips'}
@@ -86,10 +89,10 @@ return require('packer').startup {
     -- Telescope
     use {
       'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     }
 
-    use { 'camspiers/snap' }
+    use {'camspiers/snap'}
 
     -- Misc
     use {'matze/vim-move'}
@@ -99,5 +102,6 @@ return require('packer').startup {
     use {'plasticboy/vim-markdown'}
     use {'airblade/vim-rooter'}
     use {'bling/vim-bufferline'}
-  end
+    use 'tversteeg/registers.nvim'
+  end,
 }

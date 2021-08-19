@@ -1,7 +1,7 @@
 local set_hl = require'tc.utils.util'.set_hl
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo, g = vim.g}
 local indent = 2
-local home = os.getenv("HOME")
+local home = os.getenv('HOME')
 
 local function opt(scope, key, value)
   scopes[scope][key] = value
