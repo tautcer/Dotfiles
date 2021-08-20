@@ -75,11 +75,16 @@ return require('packer').startup {
     use {'RishabhRD/popfix'}
     use {'RishabhRD/nvim-lsputils'}
     use {'hrsh7th/nvim-compe'}
-
-    --  This is the main one
-    use {'ms-jpq/coq_nvim', branch = 'coq'}
-    --  9000+ Snippets
-    use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
+    use {
+      "folke/lsp-trouble.nvim",
+      config = function()
+        -- Can use P to toggle auto movement
+        require("trouble").setup {
+          auto_preview = false,
+          auto_fold = true,
+        }
+      end,
+    }
 
     -- Snippets
     use {'honza/vim-snippets'}
@@ -102,6 +107,14 @@ return require('packer').startup {
     use {'plasticboy/vim-markdown'}
     use {'airblade/vim-rooter'}
     use {'bling/vim-bufferline'}
-    use 'tversteeg/registers.nvim'
+    use {'tversteeg/registers.nvim'}
+    use {
+      'tpope/vim-scriptease',
+      cmd = {
+        'Messages', -- view messages in quickfix list
+        'Verbose', -- view verbose output in preview window.
+        'Time', -- measure how long it takes to run some stuff.
+      },
+    }
   end,
 }
