@@ -2,6 +2,7 @@
 --- Using lua functions
 nnoremap('<leader>f', '<cmd>lua require(\'telescope.builtin\').find_files()<cr>')
 nnoremap('<C-f>', '<cmd>lua require(\'telescope.builtin\').live_grep()<cr>')
+nnoremap('<leader>m', '<cmd>lua require(\'telescope.builtin\').grep_string()<cr>')
 nnoremap('<leader>b', '<cmd>lua require(\'telescope.builtin\').buffers()<cr>')
 nnoremap(
   '<leader>gc', '<cmd>lua require(\'telescope.builtin\').git_commits()<cr>'
