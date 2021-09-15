@@ -31,19 +31,6 @@ module.exports = {
         accessibility: 'explicit'
       }
     ],
-    // check if this is needed as it seems to conflict with prettier
-    //'@typescript-eslint/indent': [
-    //  'warn',
-    //  2,
-    //  {
-    //    FunctionDeclaration: {
-    //      parameters: 'first'
-    //    },
-    //    FunctionExpression: {
-    //      parameters: 'first'
-    //    }
-    //  }
-    //],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/member-delimiter-style': [
       'warn',

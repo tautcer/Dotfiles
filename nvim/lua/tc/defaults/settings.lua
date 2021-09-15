@@ -70,7 +70,7 @@ vim.cmd(
 vim.cmd('syntax on')
 -- set_hl('ColorColumn', {bg = '#3C3836'})
 -- set_hl('SignColumn', {bg = 'NONE'})
--- set_hl('Comment', {gui = 'italic', fg = '#d6cb2f'})
+set_hl('Comment', {gui = 'italic', fg = '#d6cb2f'})
 
 vim.api.nvim_exec(
   [[
@@ -82,4 +82,4 @@ vim.api.nvim_exec(
 
 -- Specifies python and node provider path to make startup faster
 vim.g.pymode_python = 'python3'
-vim.g.python3_host_prog = '/usr/bin/python3.9'
+vim.g.python3_host_prog = '~/.pyenv/shims/python3.9'

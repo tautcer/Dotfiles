@@ -47,18 +47,21 @@ local function on_attach(client)
 end
 --
 -- using tab for navigating in completion
-vim.api.nvim_exec(
-  [[
-imap <Tab> <Plug>(completion_smart_tab) 
-imap <S-Tab> <Plug>(completion_smart_s_tab) 
-]], true
-)
+-- vim.api.nvim_exec(
+--   [[
+-- imap <Tab> <Plug>(completion_smart_tab) 
+-- imap <S-Tab> <Plug>(completion_smart_s_tab) 
+-- ]], true
+-- )
 
 lsp_status.register_progress()
 
+-- nvim-cmp supports additional completion capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 local sumneko_binary =
   home .. '/Projects/lua-language-server/bin/Linux/lua-language-server'
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local servers = {
@@ -70,7 +73,7 @@ local servers = {
   rls = {filetypes = {'rust'}},
   jsonls = {},
   efm = {
-    init_options = {documentFormatting = true},
+    init_options = {documentFormatting = true, codeAction = true},
     root_dir = function() return vim.fn.getcwd() end,
     filetypes = {
       'lua',
@@ -86,6 +89,7 @@ local servers = {
       'sass',
       'scss',
       'css',
+      'xml',
     },
   },
   tsserver = {
@@ -165,7 +169,7 @@ local setup_server = function(server, config)
 
   config = vim.tbl_deep_extend("force", {
     on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
+    capabilities = capabilities,
     flags = {
       debounce_text_changes = 50,
     },

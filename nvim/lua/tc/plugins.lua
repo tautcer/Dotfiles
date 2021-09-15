@@ -31,7 +31,6 @@ return require('packer').startup {
     -- use 'itchyny/lightline.vim'
     use 'edkolev/tmuxline.vim'
     use 'windwp/nvim-autopairs'
-    use 'simnalamburt/vim-mundo'
     use 'b3nj5m1n/kommentary'
 
     -- Markdown
@@ -45,6 +44,7 @@ return require('packer').startup {
     -- Git
     use {'lewis6991/gitsigns.nvim'}
     use {'tpope/vim-fugitive'}
+    use {'sindrets/diffview.nvim'}
 
     -- Theme
     use 'kyazdani42/nvim-web-devicons'
@@ -74,22 +74,18 @@ return require('packer').startup {
     use {'norcalli/nvim-colorizer.lua'}
     use {'RishabhRD/popfix'}
     use {'RishabhRD/nvim-lsputils'}
-    use {'hrsh7th/nvim-compe'}
-    use {
-      "folke/lsp-trouble.nvim",
-      config = function()
-        -- Can use P to toggle auto movement
-        require("trouble").setup {
-          auto_preview = false,
-          auto_fold = true,
-        }
-      end,
-    }
 
-    -- Snippets
-    use {'honza/vim-snippets'}
-    use {'SirVer/ultisnips'}
-    use {'voldikss/vim-floaterm'}
+    -- nvim-cmp
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        "hrsh7th/vim-vsnip",
+        "hrsh7th/cmp-buffer",
+      }
+    }
+    use {'hrsh7th/cmp-nvim-lsp'}
+    use {'saadparwaiz1/cmp_luasnip'}
+    use {'L3MON4D3/LuaSnip'} -- Snippets plugin
 
     -- Telescope
     use {
@@ -97,6 +93,7 @@ return require('packer').startup {
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use {'ahmedkhalf/project.nvim'}
 
     use {'camspiers/snap'}
 

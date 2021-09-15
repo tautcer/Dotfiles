@@ -16,3 +16,6 @@ nnoremap(
 nnoremap(
   '<leader>gp', '<cmd>lua require(\'telescope.builtin\').git_bcommits()<cr>'
 )
+nnoremap(
+  '<leader>p', '<cmd>Telescope projects<cr>'
+)

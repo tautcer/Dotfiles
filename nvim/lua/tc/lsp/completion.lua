@@ -16,73 +16,86 @@ vim.lsp.handlers['textDocument/documentSymbol'] =
 vim.lsp.handlers['workspace/symbol'] =
   require'lsputil.symbols'.workspace_handler
 
-local remap = vim.api.nvim_set_keymap
-local protocol = require('vim.lsp.protocol')
+local cmp_kinds = {
+  Class         = " Class",
+  Color         = " Color",
+  Constant      = " Constant",
+  Constructor   = " Constructor",
+  Enum          = "了Enum",
+  EnumMember    = " EnumMember",
+  Field         = "ƒ Field",
+  File          = " File",
+  Folder        = " Folder",
+  Function      = " Function",
+  Interface     = "ﰮ Interface",
+  Keyword       = " Keyword",
+  Method        = "ƒ Method",
+  Module        = " Module",
+  Property      = " Property",
+  Snippet       = "﬌ Snippet",
+  Struct        = " Struct",
+  Reference     = "Reference",
+  Text          = " Text",
+  Unit          = " Unit",
+  Value         = " Value",
+  Variable      = " Variable",
+  Operator      = "Operator",
+  Event         = "  Event",
+  TypeParameter = "TypeParameter",
+}
 
-require'compe'.setup {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 2,
-  preselect = 'enable',
-  throttle_time = 80,
-  source_timeout = 200,
-  incomplete_delay = 400,
+-- luasnip setup
+local luasnip = require 'luasnip'
 
-  source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    vsnip = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    spell = true,
-    tags = true,
-    snippets_nvim = true,
-    ultisnips = true,
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      -- vim.fn["vsnip#anonymous"](args.body)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-f>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+      elseif luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+      elseif luasnip.jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+      else
+        fallback()
+      end
+    end,
+  },
+  formatting = {
+    format = function(_, vim_item)
+      vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+      return vim_item
+    end,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
+    { name = 'luasnip' },
+    { name = 'buffer' },
   },
 }
-
-protocol.CompletionItemKind = {
-  ' Text', -- = 1
-  'ƒ Method', -- = 2;
-  ' Function', -- = 3;
-  ' Constructor', -- = 4;
-  'ƒ Field', -- = 5;
-  ' Variable', -- = 6;
-  ' Class', -- = 7;
-  'ﰮ Interface', -- = 8;
-  ' Module', -- = 9;
-  ' Property', -- = 10;
-  ' Unit', -- = 11;
-  ' Value', -- = 12;
-  '了Enum', -- = 13;
-  ' Keyword', -- = 14;
-  '﬌ Snippet', -- = 15;
-  ' Color', -- = 16;
-  ' File', -- = 17;
-  'Reference', -- = 18;
-  ' Folder', -- = 19;
-  ' EnumMember', -- = 20;
-  ' Constant', -- = 21;
-  ' Struct', -- = 22;
-  'Event', -- = 23;
-  'Operator', -- = 24;
-  'TypeParameter', -- = 25;
-}
---  mappings
-remap('s', '<Tab>', 'v:lua.tab_complete()', {expr = true})
-remap('i', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
-remap('s', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true})
-remap('i', '<CR>', 'v:lua.completions()', {expr = true})
-
-function _G.completions()
-  local npairs = require('nvim-autopairs')
-  if vim.fn.pumvisible() == 1 then
-    if vim.fn.complete_info()['selected'] ~= -1 then
-      return vim.fn['compe#confirm']('<CR>')
-    end
-  end
-  return npairs.check_break_line_char()
-end
-
