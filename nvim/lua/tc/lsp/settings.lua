@@ -45,14 +45,6 @@ local function on_attach(client)
   map('n', '<Leader>ff', '<cmd>lua vim.lsp.buf.formatting()<cr>')
 
 end
---
--- using tab for navigating in completion
--- vim.api.nvim_exec(
---   [[
--- imap <Tab> <Plug>(completion_smart_tab) 
--- imap <S-Tab> <Plug>(completion_smart_s_tab) 
--- ]], true
--- )
 
 lsp_status.register_progress()
 
@@ -116,8 +108,12 @@ local servers = {
       less = {validate = true},
     },
   },
-  -- pyls = {filetypes = {'python'}},
+  -- pylsp = {
+  --   root_dir = function() return vim.fn.getcwd() end,
+  --   init_options = {documentFormatting = false, codeAction = true},
+  -- },
   pyright = {},
+  clangd = {},
   sumneko_lua = {
     cmd = {
       sumneko_binary,

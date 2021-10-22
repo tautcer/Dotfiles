@@ -81,10 +81,12 @@ return require('packer').startup {
       requires = {
         "hrsh7th/vim-vsnip",
         "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lua',
+        'saadparwaiz1/cmp_luasnip',
       }
     }
-    use {'hrsh7th/cmp-nvim-lsp'}
-    use {'saadparwaiz1/cmp_luasnip'}
     use {'L3MON4D3/LuaSnip'} -- Snippets plugin
 
     -- Telescope
@@ -98,6 +100,7 @@ return require('packer').startup {
     use {'camspiers/snap'}
 
     -- Misc
+    use {'voldikss/vim-floaterm'}
     use {'matze/vim-move'}
     use {'zhimsel/vim-stay'}
     -- Documentation builder, really useful for TS and Python

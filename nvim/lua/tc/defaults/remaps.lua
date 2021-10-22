@@ -30,10 +30,6 @@ nmap('ZZ', '<cmd>:wq<cr>')
 
 vmap('>', '>gv')
 vmap('<', '<gv')
---
--- <Tab> to navigate the completion menu
-inoremap('<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
-inoremap('<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 vnoremap('p', ':<C-U>let @p = @+<CR>gvp:let @+ = @p<CR>', {expr = true})
 
