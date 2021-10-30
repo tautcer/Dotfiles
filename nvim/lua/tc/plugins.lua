@@ -77,15 +77,15 @@ return require('packer').startup {
 
     -- nvim-cmp
     use {
-      "hrsh7th/nvim-cmp",
+      'hrsh7th/nvim-cmp',
       requires = {
-        "hrsh7th/vim-vsnip",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
+        'hrsh7th/vim-vsnip',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lua',
         'saadparwaiz1/cmp_luasnip',
-      }
+      },
     }
     use {'L3MON4D3/LuaSnip'} -- Snippets plugin
 
@@ -94,12 +94,13 @@ return require('packer').startup {
       'nvim-telescope/telescope.nvim',
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     }
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     use {'ahmedkhalf/project.nvim'}
 
     use {'camspiers/snap'}
 
     -- Misc
+    use {'lukas-reineke/indent-blankline.nvim'}
     use {'voldikss/vim-floaterm'}
     use {'matze/vim-move'}
     use {'zhimsel/vim-stay'}

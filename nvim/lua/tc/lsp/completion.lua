@@ -94,12 +94,12 @@ cmp.setup {
   },
   sources = {
     { name = 'luasnip' },
-    { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
     { name = 'vsnip' },
     { name = 'path' },
     { name = 'buffer' },
-  },
+  }
 }
 
 -- you need setup cmp first put this after cmp.setup()
