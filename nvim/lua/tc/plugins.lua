@@ -96,8 +96,10 @@ return require('packer').startup {
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
     use {'ahmedkhalf/project.nvim'}
-
     use {'camspiers/snap'}
+
+    -- Speed up nvim
+    use {'nathom/filetype.nvim'}
 
     -- Misc
     use {'lukas-reineke/indent-blankline.nvim'}
@@ -118,5 +120,13 @@ return require('packer').startup {
         'Time', -- measure how long it takes to run some stuff.
       },
     }
+    -- Better TODO behavior
+    use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+    }
+
+    -- Org mode
+    use {'kristijanhusak/orgmode.nvim'}
   end,
 }

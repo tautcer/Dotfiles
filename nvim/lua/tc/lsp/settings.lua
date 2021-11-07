@@ -113,10 +113,12 @@ local servers = {
       less = {validate = true},
     },
   },
-  -- pylsp = {
-  --   root_dir = function() return vim.fn.getcwd() end,
-  --   init_options = {documentFormatting = false, codeAction = true},
-  -- },
+  pylsp = {
+    root_dir = function() return vim.fn.getcwd() end,
+    init_options = {documentFormatting = false, codeAction = true},
+  },
+  gopls = {
+  },
   pyright = {},
   clangd = {},
   sumneko_lua = {

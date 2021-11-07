@@ -1,7 +1,7 @@
 local set_hl = require'tc.utils.util'.set_hl
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo, g = vim.g}
 local indent = 2
-local home = os.getenv("HOME")
+local home = os.getenv('HOME')
 
 local function opt(scope, key, value)
   scopes[scope][key] = value
@@ -9,6 +9,8 @@ local function opt(scope, key, value)
 end
 
 vim.g.mapleader = ' '
+
+vim.g.did_load_filetypes = 1
 
 opt('g', 'redrawtime', 10000)
 opt('g', 'lazyredraw', true)
@@ -67,18 +69,20 @@ vim.cmd(
 	]]
 )
 
-vim.cmd('syntax on')
+vim.cmd([[
+  syntax on
+]])
 -- set_hl('ColorColumn', {bg = '#3C3836'})
 -- set_hl('SignColumn', {bg = 'NONE'})
 set_hl('Comment', {gui = 'italic', fg = '#d6cb2f'})
 
-vim.api.nvim_exec(
-  [[
- autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
- autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
- highlight! link mkdLineBreak NONE
-]], ''
-)
+-- vim.api.nvim_exec(
+--   [[
+--  autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
+--  autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
+--  highlight! link mkdLineBreak NONE
+-- ]], ''
+-- )
 
 -- Specifies python and node provider path to make startup faster
 vim.g.pymode_python = 'python3'

@@ -1,5 +1,3 @@
-local Job = require('plenary.job')
-
 Util = {}
 
 P = function(...) return print(vim.inspect({...})) end

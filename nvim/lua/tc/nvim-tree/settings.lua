@@ -1,16 +1,7 @@
 -- Set some variables
 vim.g.nvim_tree_side = 'left'
 vim.g.nvim_tree_width = 50
-vim.g.nvim_tree_ignore = {
-  '.git',
-  'node_modules',
-  '.cache',
-  '.routify',
-  'dist',
-  '.cache',
-}
 vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_hide_dotfiles = 1
 vim.g.nvim_tree_git_hl = 1
 vim.g.nvim_tree_root_folder_modifier = ':~'
 vim.g.nvim_tree_show_icons = {git = 0, folders = 1, files = 1}
@@ -78,6 +69,18 @@ require('nvim-tree').setup {
     side = 'left',
     mappings = {
       list = list
+    }
+  },
+  update_focused_file = {
+    enable      = false,
+    update_cwd  = false,
+    ignore_list = {
+      '.git',
+      'node_modules',
+      '.cache',
+      '.routify',
+      'dist',
+      '.cache',
     }
   },
 }

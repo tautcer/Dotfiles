@@ -37,3 +37,7 @@ require 'tc.floaterm'
 require 'tc.kommentary'
 
 require 'tc.gitsigns'
+
+require 'tc.todo-comments'
+
+require 'tc.org-mode'
