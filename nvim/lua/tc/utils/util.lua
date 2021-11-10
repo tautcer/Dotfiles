@@ -1,6 +1,12 @@
+local RELOAD = require('plenary.reload').reload_module
+
 Util = {}
 
 P = function(...) return print(vim.inspect({...})) end
+R = function(name)
+  RELOAD(name)
+  return require(name)
+end
 
 Util.check_backspace = function()
   local curr_col = vim.fn.col('.')

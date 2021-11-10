@@ -31,7 +31,7 @@ return require('packer').startup {
     -- use 'itchyny/lightline.vim'
     use 'edkolev/tmuxline.vim'
     use 'windwp/nvim-autopairs'
-    use 'b3nj5m1n/kommentary'
+    use {'numToStr/Comment.nvim'}
 
     -- Markdown
     use 'vim-pandoc/vim-pandoc'
@@ -121,12 +121,14 @@ return require('packer').startup {
       },
     }
     -- Better TODO behavior
-    use {
-      "folke/todo-comments.nvim",
-      requires = "nvim-lua/plenary.nvim",
-    }
+    use {'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim'}
 
     -- Org mode
     use {'kristijanhusak/orgmode.nvim'}
+
+    -- Github integration
+    use {'pwntester/octo.nvim', config=function()
+      require"octo".setup()
+    end}
   end,
 }
