@@ -69,6 +69,13 @@ tools:
     lint-command: 'yamllint -f parsable -'
     lint-stdin: true
 
+  gofumpt: &gofumpt
+    format-command = 'gofumpt',
+    format-stdin = true,
+
+  golangci-lint: &golangci-lint
+    lint-command: "golangci-lint run ./"
+
 languages:
   vim:
     - <<: *vim-vint
@@ -91,6 +98,8 @@ languages:
     - <<: *prettier
   html:
     - <<: *prettier
+  xml:
+    - <<: *prettier
   scss:
     - <<: *prettier
   css:
@@ -100,10 +109,12 @@ languages:
   go:
     - <<: *goimports
     - <<: *golint
+    - <<: &gofumpt
+    - <<: &golangci-lint
   python:
     - <<: *black
     - <<: *isort
-    - <<: *flake8
+    # - <<: *flake8
   tf:
     - <<: *terraform
   lua:
