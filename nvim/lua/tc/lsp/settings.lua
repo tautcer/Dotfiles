@@ -26,11 +26,11 @@ local function on_attach(client)
 
   map(
     'n', '<leader>ca',
-    '<cmd>lua require(\'telescope.builtin\').lsp_code_actions()<CR>'
+    "<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<cr>"
   )
   map(
     'v', '<leader>ca',
-    '<cmd>lua require(\'telescope.builtin\').lsp_range_code_actions({ timeout = 1000 })<CR>'
+    "<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<cr>"
   )
 
   map(
@@ -118,6 +118,10 @@ local servers = {
     init_options = {documentFormatting = false, codeAction = true},
   },
   gopls = {
+    codelens = { generate = true, gc_details = true },
+    experimentalWorkspaceModule = true,
+    semanticTokens = true,
+    experimentalPostfixCompletions = true,
   },
   pyright = {},
   clangd = {},

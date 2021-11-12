@@ -53,15 +53,13 @@ opt('o', 'backspace', 'indent,eol,start')
 opt('o', 'cmdheight', 1)
 opt('o', 'undofile', true)
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
-opt('o', 'dir', home .. '/.config/nvim/swap/')
 opt('o', 'undodir', home .. '/.config/nvim/undo/')
 opt('o', 'shortmess', 'csa')
-opt('o', 'listchars', 'tab:»\\ ')
 opt('o', 'background', 'dark')
 
 vim.cmd(
   [[
-    set dir=~/.config/nvim/swap/
+    set noswapfile
     set backup
     set backupdir=~/.config/nvim/backup/
     set undofile
