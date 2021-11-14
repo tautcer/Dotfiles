@@ -19,3 +19,6 @@ nnoremap(
 nnoremap(
   '<leader>p', '<cmd>Telescope projects<cr>'
 )
+nnoremap(
+  '<leader>sc', "<cmd>lua require('telescope.builtin').spell_suggest()<cr>"
+)

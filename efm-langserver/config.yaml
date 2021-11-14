@@ -70,11 +70,15 @@ tools:
     lint-stdin: true
 
   gofumpt: &gofumpt
-    format-command = 'gofumpt',
+    format-command = 'gofumpt -l -w',
     format-stdin = true,
 
   golangci-lint: &golangci-lint
     lint-command: "golangci-lint run ./"
+
+  golines: &golines
+    format-command: "golines --max-len=120  --base-formatter=gofumpt"
+    format-stdin: true
 
 languages:
   vim:
@@ -107,10 +111,11 @@ languages:
   markdown:
     - <<: *prettier
   go:
-    - <<: *goimports
-    - <<: *golint
-    - <<: &gofumpt
-    - <<: &golangci-lint
+    - <<: *golines
+    # - <<: *goimports
+    # - <<: *golint
+    # - <<: *gofumpt
+    # - <<: *golangci-lint
   python:
     - <<: *black
     - <<: *isort

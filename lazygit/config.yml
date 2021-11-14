@@ -28,7 +28,7 @@ gui:
   mouseEvents: true
   skipUnstageLineWarning: false
   skipStashWarning: true
-  showFileTree: false # for rendering changes files in a tree format
+  showFileTree: true # for rendering changes files in a tree format
   showListFooter: true # for seeing the '5 of 20' message in list panels
   showRandomTip: true
   showCommandLog: true
@@ -60,9 +60,9 @@ git:
   disableForcePushing: false
   parseEmoji: false
 os:
-  editCommand: '' # see 'Configuring File Editing' section
-  editCommandTemplate: '{{editor}} {{filename}}'
-  openCommand: ''
+  editCommand: 'nvim' # see 'Configuring File Editing' section
+  editCommandTemplate: '{{editor}} +{{line}}  {{filename}}'
+  openCommand: 'nvim {{filename}}'
 refresher:
   refreshInterval: 10 # file/submodule refresh interval in seconds
   fetchInterval: 60 # re-fetch interval in seconds
@@ -75,6 +75,7 @@ confirmOnQuit: false
 quitOnTopLevelReturn: false
 disableStartupPopups: false
 notARepository: 'prompt' # one of: 'prompt' | 'create' | 'skip'
+displayConfirmationWindow: false
 keybinding:
   universal:
     quit: 'q'

@@ -86,6 +86,7 @@ local servers = {
       'scss',
       'css',
       'xml',
+      'go',
     },
   },
   tsserver = {
