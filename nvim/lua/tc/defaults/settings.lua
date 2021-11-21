@@ -72,7 +72,7 @@ vim.cmd([[
 ]])
 -- set_hl('ColorColumn', {bg = '#3C3836'})
 -- set_hl('SignColumn', {bg = 'NONE'})
-set_hl('Comment', {gui = 'italic', fg = '#d6cb2f'})
+-- set_hl('Comment', {fg = '#d6cb2f'})
 
 -- vim.api.nvim_exec(
 --   [[

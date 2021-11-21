@@ -39,6 +39,7 @@ git:
   paging:
     colorArg: always
     useConfig: false
+    pager: delta -s --dark --paging=never
   merging:
     # only applicable to unix users
     manualCommit: false
@@ -75,7 +76,7 @@ confirmOnQuit: false
 quitOnTopLevelReturn: false
 disableStartupPopups: false
 notARepository: 'prompt' # one of: 'prompt' | 'create' | 'skip'
-displayConfirmationWindow: false
+displayConfirmationWindow: true
 keybinding:
   universal:
     quit: 'q'
