@@ -29,13 +29,13 @@ return require('packer').startup {
     use {'wbthomason/packer.nvim', opt = true}
 
     -- use 'itchyny/lightline.vim'
-    use 'edkolev/tmuxline.vim'
-    use 'windwp/nvim-autopairs'
+    use {'edkolev/tmuxline.vim'}
+    use {'windwp/nvim-autopairs'}
     use {'numToStr/Comment.nvim'}
 
     -- Markdown
-    use 'vim-pandoc/vim-pandoc'
-    use 'vim-pandoc/vim-pandoc-syntax'
+    use {'vim-pandoc/vim-pandoc'}
+    use {'vim-pandoc/vim-pandoc-syntax'}
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'}
 
     -- Navigation
