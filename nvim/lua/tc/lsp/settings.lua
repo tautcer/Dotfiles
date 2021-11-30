@@ -1,7 +1,7 @@
 local nvim_lsp = require('lspconfig')
 local lsp_status = require('lsp-status')
 local util = require 'lspconfig/util'
-local home = os.getenv("HOME")
+local home = os.getenv('HOME')
 
 local map = function(type, key, value)
   vim.api.nvim_buf_set_keymap(
@@ -26,11 +26,11 @@ local function on_attach(client)
 
   map(
     'n', '<leader>ca',
-    "<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<cr>"
+    '<cmd>lua require(\'telescope.builtin\').lsp_code_actions(require(\'telescope.themes\').get_cursor())<cr>'
   )
   map(
     'v', '<leader>ca',
-    "<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<cr>"
+    '<cmd>lua require(\'telescope.builtin\').lsp_code_actions(require(\'telescope.themes\').get_cursor())<cr>'
   )
 
   map(
@@ -51,14 +51,14 @@ lsp_status.register_progress()
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local sumneko_binary =
-  home .. '/Projects/lua-language-server/bin/Linux/lua-language-server'
+local sumneko_binary = home ..
+                         '/Projects/lua-language-server/bin/Linux/lua-language-server'
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
 
 local servers = {
   bashls = {},
@@ -119,7 +119,7 @@ local servers = {
     init_options = {documentFormatting = false, codeAction = true},
   },
   gopls = {
-    codelens = { generate = true, gc_details = true },
+    codelens = {generate = true, gc_details = true},
     experimentalWorkspaceModule = true,
     semanticTokens = true,
     experimentalPostfixCompletions = true,
@@ -132,7 +132,7 @@ local servers = {
       '-E',
       home .. '/Projects/lua-language-server/main.lua',
     },
-    filetypes = {"lua"},
+    filetypes = {'lua'},
     capabilities = capabilities,
     settings = {
       Lua = {
@@ -168,25 +168,20 @@ local servers = {
 }
 
 local setup_server = function(server, config)
-  if not config then
-    return
-  end
+  if not config then return end
 
-  if type(config) ~= "table" then
-    config = {}
-  end
+  if type(config) ~= 'table' then config = {} end
 
-  config = vim.tbl_deep_extend("force", {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 50,
-    },
-  }, config)
+  config = vim.tbl_deep_extend(
+    'force', {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      flags = {debounce_text_changes = 50},
+    }, config
+  )
 
   nvim_lsp[server].setup(config)
 end
 
-for server, config in pairs(servers) do
-  setup_server(server, config)
-end
+
+for server, config in pairs(servers) do setup_server(server, config) end

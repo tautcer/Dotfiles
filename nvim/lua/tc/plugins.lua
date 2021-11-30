@@ -28,7 +28,6 @@ return require('packer').startup {
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
-    -- use 'itchyny/lightline.vim'
     use {'edkolev/tmuxline.vim'}
     use {'windwp/nvim-autopairs'}
     use {'numToStr/Comment.nvim'}
