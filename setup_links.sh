@@ -5,3 +5,4 @@ ln -s ~/Projects/Dotfiles/nvim/ ~/.config/
 ln -s ~/Projects/Dotfiles/efm-langserver/ ~/.config/
 ln -s ~/Projects/Dotfiles/.git-templates/ ~/
 ln -s ~/Projects/Dotfiles/.bashrc ~/
+ln -s ~/Projects/Dotfiles/kitty/ ~/.config/
