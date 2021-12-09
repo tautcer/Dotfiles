@@ -16,14 +16,12 @@ local function on_attach(client)
 
   map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
   map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-
   map('n', 'gr', '<cmd>lua require(\'telescope.builtin\').lsp_references()<CR>')
   map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
   map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
   map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
   map('n', '<leader>gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
   map('n', '<leader>gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-
   map(
     'n', '<leader>ca',
     '<cmd>lua require(\'telescope.builtin\').lsp_code_actions(require(\'telescope.themes\').get_cursor())<cr>'
@@ -182,6 +180,5 @@ local setup_server = function(server, config)
 
   nvim_lsp[server].setup(config)
 end
-
 
 for server, config in pairs(servers) do setup_server(server, config) end

@@ -124,10 +124,5 @@ return require('packer').startup {
 
     -- Org mode
     use {'kristijanhusak/orgmode.nvim'}
-
-    -- Github integration
-    use {'pwntester/octo.nvim', config=function()
-      require"octo".setup()
-    end}
   end,
 }
