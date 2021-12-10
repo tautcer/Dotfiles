@@ -9,4 +9,6 @@ alias python 'python3'
 alias ls 'exa --icons'
 alias stop 'sudo systemctl stop '
 alias start 'sudo systemctl start '
-
+if type -q bass && test -f ~/.local/bin/cd_up_to_git.sh 
+  alias c2g 'bass source ~/.local/bin/cd_up_to_git.sh'
+end
