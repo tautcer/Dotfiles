@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
-ln -s ~/Projects/Dotfiles/lazygit/ ~/.config/
-ln -s ~/Projects/Dotfiles/nvim/ ~/.config/
-ln -s ~/Projects/Dotfiles/efm-langserver/ ~/.config/
-ln -s ~/Projects/Dotfiles/.git-templates/ ~/
-ln -s ~/Projects/Dotfiles/.bashrc ~/
-ln -s ~/Projects/Dotfiles/kitty/ ~/.config/
+PWD=$PWD
+
+ln -s $PWD/lazygit/ ~/.config/ -f
+ln -s $PWD/nvim/ ~/.config/ -f
+ln -s $PWD/efm-langserver/ ~/.config/ -f
+ln -s $PWD/.git-templates/ ~/ -f
+ln -s $PWD/kitty/ ~/.config/ -f
+ln -s $PWD/fish/config.fish ~/.config/fish/ -f
+ln -s $PWD/fish/aliases.fish ~/.config/fish/ -f
+
+for filename in $PWD/local/bin/*.sh; do
+  ln -s $filename ~/.local/bin/ -f
+done

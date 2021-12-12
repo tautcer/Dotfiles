@@ -22,3 +22,8 @@ addEventListener(
   'pandoc_syntax', {'BufNewFile,BufFilePre,BufRead *.md'},
   function() vim.cmd('set filetype=pandoc') end
 )
+
+addEventListener(
+  'njk_syntax', {'BufNewFile,BufFilePre,BufRead *.njk'},
+  function() vim.cmd('set filetype=html') end
+)
