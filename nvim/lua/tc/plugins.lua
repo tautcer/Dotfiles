@@ -4,16 +4,13 @@ local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 if not packer_exists then
   if vim.fn.input('Download Packer? (y for yes)') ~= 'y' then return end
 
-  local directory = string.format(
-    '%s/site/pack/packer/opt/', vim.fn.stdpath('data')
-  )
+  local directory = string.format('%s/site/pack/packer/opt/', vim.fn.stdpath('data'))
 
   vim.fn.mkdir(directory, 'p')
 
   local out = vim.fn.system(
     string.format(
-      'git clone %s %s', 'https://github.com/wbthomason/packer.nvim',
-      directory .. '/packer.nvim'
+      'git clone %s %s', 'https://github.com/wbthomason/packer.nvim', directory .. '/packer.nvim'
     )
   )
 
@@ -73,20 +70,23 @@ return require('packer').startup {
     use {'norcalli/nvim-colorizer.lua'}
     use {'RishabhRD/popfix'}
     use {'RishabhRD/nvim-lsputils'}
+    use {'L3MON4D3/LuaSnip'} -- Snippets plugin
+    use {'rafamadriz/friendly-snippets'}
 
     -- nvim-cmp
     use {
       'hrsh7th/nvim-cmp',
       requires = {
         'hrsh7th/vim-vsnip',
+        'hrsh7th/vim-vsnip-integ',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-vsnip',
         'saadparwaiz1/cmp_luasnip',
       },
     }
-    use {'L3MON4D3/LuaSnip'} -- Snippets plugin
 
     -- Telescope
     use {

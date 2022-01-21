@@ -1,7 +1,8 @@
 local actions = require('telescope.actions')
+local telescope = require('telescope')
 -- Global remapping
 
-require('telescope').setup {
+telescope.setup {
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -48,6 +49,6 @@ require('telescope').setup {
   },
 }
 
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('projects')
+telescope.load_extension 'fzf'
+telescope.load_extension 'projects'
 require('project_nvim').setup {patterns = {'.git'}}

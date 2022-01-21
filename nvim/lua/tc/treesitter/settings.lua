@@ -19,7 +19,6 @@ require'nvim-treesitter.configs'.setup {
     'comment',
     'dot',
     'yaml',
-    'org',
   },
   highlight = {
     enable = true, -- false will disable the whole extension
