@@ -3,10 +3,11 @@ local lsp_status = require('lsp-status')
 local util = require 'lspconfig/util'
 local home = os.getenv('HOME')
 
-local map = function(type, key, value) vim.api.nvim_buf_set_keymap(0, type, key, value, {
-  noremap = true,
-  silent = true,
-}); end
+local map = function(type, key, value)
+  vim.api.nvim_buf_set_keymap(
+    0, type, key, value, {noremap = true, silent = true}
+  );
+end
 local function on_attach(client)
   lsp_status.on_attach(client)
 
@@ -30,7 +31,10 @@ local function on_attach(client)
     '<cmd>lua require(\'telescope.builtin\').lsp_code_actions(require(\'telescope.themes\').get_cursor())<cr>'
   )
 
-  map('n', '<leader>ee', '<cmd>lua vim.lsp.diagnostics.show_line_diagnostics()<CR>')
+  map(
+    'n', '<leader>ee',
+    '<cmd>lua vim.lsp.diagnostics.show_line_diagnostics()<CR>'
+  )
   map('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
   map('n', '<leader>ai', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
   map('n', '<leader>ao', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
@@ -45,7 +49,8 @@ lsp_status.register_progress()
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local sumneko_binary = home .. '/Projects/lua-language-server/bin/lua-language-server'
+local sumneko_binary = home ..
+                         '/Projects/lua-language-server/bin/Linux/lua-language-server'
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 

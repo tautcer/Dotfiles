@@ -4,13 +4,16 @@ local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 if not packer_exists then
   if vim.fn.input('Download Packer? (y for yes)') ~= 'y' then return end
 
-  local directory = string.format('%s/site/pack/packer/opt/', vim.fn.stdpath('data'))
+  local directory = string.format(
+    '%s/site/pack/packer/opt/', vim.fn.stdpath('data')
+  )
 
   vim.fn.mkdir(directory, 'p')
 
   local out = vim.fn.system(
     string.format(
-      'git clone %s %s', 'https://github.com/wbthomason/packer.nvim', directory .. '/packer.nvim'
+      'git clone %s %s', 'https://github.com/wbthomason/packer.nvim',
+      directory .. '/packer.nvim'
     )
   )
 
@@ -106,7 +109,10 @@ return require('packer').startup {
     use {'matze/vim-move'}
     use {'zhimsel/vim-stay'}
     -- Documentation builder, really useful for TS and Python
-    use {'kkoomen/vim-doge'}
+    use {
+      'danymat/neogen',
+      config = require('neogen').setup {enabled = true},
+    }
     use {'plasticboy/vim-markdown'}
     use {'airblade/vim-rooter'}
     use {'bling/vim-bufferline'}
