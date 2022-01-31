@@ -1,4 +1,4 @@
-module.exports = {
+exports = {
   root: true,
   extends: 'next',
   rules: {
@@ -8,6 +8,7 @@ module.exports = {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_'
       }
-    ]
+    ],
+    "@typescript-eslint/no-explicit-any": "off"
   }
 };

@@ -57,16 +57,6 @@ return require('packer').startup {
       requires = {'kyazdani42/nvim-web-devicons', opt = true},
     }
 
-    -- Find and replace
-    use 'brooth/far.vim'
-
-    -- JS, TS, HTML and CSS plugins
-    use 'mattn/emmet-vim'
-
-    -- Fzf
-    use {'junegunn/fzf'}
-    use {'junegunn/fzf.vim'} -- to enable preview (optional)
-
     -- Lsp
     use {'neovim/nvim-lspconfig'}
     use {'nvim-lua/lsp-status.nvim'}
@@ -75,6 +65,7 @@ return require('packer').startup {
     use {'RishabhRD/nvim-lsputils'}
     use {'L3MON4D3/LuaSnip'} -- Snippets plugin
     use {'rafamadriz/friendly-snippets'}
+    use {'jose-elias-alvarez/null-ls.nvim'}
 
     -- nvim-cmp
     use {
