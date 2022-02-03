@@ -102,7 +102,7 @@ local servers = {
   },
   html = {capabilities = capabilities},
   cssls = {
-    cmd = {'vscode-css-language-server', '--stdio'},
+    cmd = { 'vscode-css-language-server', '--stdio' },
     filetypes = {'css', 'scss', 'less'},
     root_dir = util.root_pattern('package.json') or vim.loop.os_homedir(),
     capabilities = capabilities,
