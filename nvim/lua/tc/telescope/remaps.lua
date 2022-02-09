@@ -1,14 +1,16 @@
+local utils = require('tc.telescope.utils')
+
 --- Telescope config
 --- Using lua functions
-nnoremap('<leader>f', '<cmd>lua require(\'telescope.builtin\').find_files()<cr>')
-nnoremap('<C-f>', '<cmd>lua require(\'telescope.builtin\').live_grep()<cr>')
-nnoremap('<leader>m', '<cmd>lua require(\'telescope.builtin\').grep_string()<cr>')
-nnoremap('<leader>b', '<cmd>lua require(\'telescope.builtin\').buffers()<cr>')
+nnoremap('<leader>f', utils.find_files)
+nnoremap('<C-f>', utils.live_grep)
+nnoremap('<leader>m', utils.grep_string)
+nnoremap('<leader>b', utils.buffers)
 nnoremap(
   '<leader>gc', '<cmd>lua require(\'telescope.builtin\').git_commits()<cr>'
 )
 nnoremap(
-  '<leader>gb', '<cmd>lua require(\'telescope.builtin\').git_branches()<cr>'
+  '<leader>gb', 'require(\'telescope.builtin\').git_branches()'
 )
 nnoremap(
   '<leader>gs', '<cmd>lua require(\'telescope.builtin\').git_status()<cr>'

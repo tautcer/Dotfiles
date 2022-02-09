@@ -1,11 +1,11 @@
 local vim = vim
 
 local function map(type, input, output)
-  vim.api.nvim_set_keymap(type, input, output, {})
+  vim.keymap.set(type, input, output, {})
 end
 
 local function noremap(type, input, output)
-  vim.api.nvim_set_keymap(type, input, output, {noremap = true})
+  vim.keymap.set(type, input, output, {noremap = true, silent = true})
 end
 
 function nnoremap(input, output) noremap('n', input, output) end
