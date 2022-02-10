@@ -1,17 +1,17 @@
 local npairs = require('nvim-autopairs')
 local remap = vim.api.nvim_set_keymap
 
-npairs.setup {
+npairs.setup({
   break_line_filetype = true, -- enable this rule for all filetypes
   pairs_map = {
-    ['\''] = '\'',
+    ["'"] = "'",
     ['"'] = '"',
     ['('] = ')',
     ['['] = ']',
     ['{'] = '}',
     ['`'] = '`',
   },
-  disable_filetype = {'TelescopePrompt'},
+  disable_filetype = { 'TelescopePrompt' },
   html_break_line_filetype = {
     'html',
     'vue',
@@ -21,7 +21,7 @@ npairs.setup {
   },
   -- ignore alphanumeric, operators, quote, curly brace, and square bracket
   ignored_next_char = '[%w%.%+%-%=%/%,"\'{%[]',
-}
+})
 
 Util.insert_space = function()
   local is_char_present = Util.check_surroundings()
@@ -33,4 +33,4 @@ Util.insert_space = function()
   return ' '
 end
 
-remap('i', '<Space>', 'v:lua.Util.insert_space()', {expr = true, noremap = true})
+remap('i', '<Space>', 'v:lua.Util.insert_space()', { expr = true, noremap = true })

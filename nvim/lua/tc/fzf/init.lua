@@ -1,2 +1,2 @@
-require 'tc.fzf.remaps'
-require 'tc.fzf.settings'
+require('tc.fzf.remaps')
+require('tc.fzf.settings')

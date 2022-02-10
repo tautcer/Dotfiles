@@ -8,7 +8,9 @@ end
 local globalListenerName = 'globallistenername' -- change this to be unique across multiple plugin name
 local autocmdhandlers = {}
 
-_G[globalListenerName] = function(name) autocmdhandlers[name]() end
+_G[globalListenerName] = function(name)
+  autocmdhandlers[name]()
+end
 
 function addEventListener(name, events, cb)
   autocmdhandlers[name] = cb

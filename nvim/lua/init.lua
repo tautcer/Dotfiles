@@ -1,47 +1,45 @@
-require 'tc.plugins'
+require('tc.plugins')
 
-require 'tc.theme'
+require('tc.theme')
 
-require 'tc.utils.remaps'
+require('tc.utils.remaps')
 
-require 'tc.utils.events'
+require('tc.utils.events')
 
-require 'tc.utils.util'
+require('tc.utils.util')
 
-require 'tc.defaults'
+require('tc.defaults')
 
-require 'tc.buffer.remaps'
+require('tc.buffer.remaps')
 
-require 'tc.statusline'
+require('tc.statusline')
 
-require 'tc.fzf'
+require('tc.fzf')
 
-require 'tc.lsp'
+require('tc.lsp')
 
-require 'tc.nvim-tree'
+require('tc.nvim-tree')
 
-require 'tc.emmet'
+require('tc.colorizer')
 
-require 'tc.colorizer'
+require('tc.treesitter')
 
-require 'tc.treesitter'
+require('tc.filetypes')
 
-require 'tc.filetypes'
+require('tc.telescope')
 
-require 'tc.telescope'
+require('tc.autopairs')
 
-require 'tc.autopairs'
+require('tc.floaterm')
 
-require 'tc.floaterm'
+require('tc.comment')
 
-require 'tc.comment'
+require('tc.gitsigns')
 
-require 'tc.gitsigns'
+require('tc.todo-comments')
 
-require 'tc.todo-comments'
+require('tc.org-mode')
 
-require 'tc.org-mode'
+require('tc.null-ls')
 
-require 'tc.null-ls'
-
-require 'tc.dap'
+require('tc.dap')

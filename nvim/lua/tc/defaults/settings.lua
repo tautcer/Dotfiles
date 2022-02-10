@@ -1,11 +1,13 @@
-local set_hl = require'tc.utils.util'.set_hl
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo, g = vim.g}
+local set_hl = require('tc.utils.util').set_hl
+local scopes = { o = vim.o, b = vim.bo, w = vim.wo, g = vim.g }
 local indent = 2
 local home = os.getenv('HOME')
 
 local function opt(scope, key, value)
   scopes[scope][key] = value
-  if scope ~= 'o' then scopes['o'][key] = value end
+  if scope ~= 'o' then
+    scopes['o'][key] = value
+  end
 end
 
 vim.g.mapleader = ' '
@@ -57,15 +59,13 @@ opt('o', 'undodir', home .. '/.config/nvim/undo/')
 opt('o', 'shortmess', 'csa')
 opt('o', 'background', 'dark')
 
-vim.cmd(
-  [[
+vim.cmd([[
     set noswapfile
     set backup
     set backupdir=~/.config/nvim/backup/
     set undofile
     set undodir=~/.config/nvim/undo/
-	]]
-)
+	]])
 
 vim.cmd([[
   syntax on

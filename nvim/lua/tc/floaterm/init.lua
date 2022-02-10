@@ -1,1 +1,1 @@
-require 'tc.floaterm.maps'
+require('tc.floaterm.maps')

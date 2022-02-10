@@ -1,1 +1,1 @@
-require 'tc.statusline.settings'
+require('tc.statusline.settings')

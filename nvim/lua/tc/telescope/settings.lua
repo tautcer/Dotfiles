@@ -2,7 +2,7 @@ local actions = require('telescope.actions')
 local telescope = require('telescope')
 -- Global remapping
 
-telescope.setup {
+telescope.setup({
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -17,26 +17,26 @@ telescope.setup {
     selection_strategy = 'reset',
     sorting_strategy = 'descending',
     layout_strategy = 'flex',
-    layout_config = {vertical = {width = 075}},
+    layout_config = { vertical = { width = 075 } },
     mappings = {
       i = {
         ['<C-k>'] = actions.preview_scrolling_up,
         ['<C-j>'] = actions.preview_scrolling_down,
       },
     },
-    file_sorter = require'telescope.sorters'.get_fzy_sorter,
-    file_ignore_patterns = {'yarn.lock', 'package-lock'},
-    generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
+    file_sorter = require('telescope.sorters').get_fzy_sorter,
+    file_ignore_patterns = { 'yarn.lock', 'package-lock' },
+    generic_sorter = require('telescope.sorters').get_generic_fuzzy_sorter,
     winblend = 0,
     border = {},
     borderchars = {
-      {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-      preview = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+      { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
     },
     color_devicons = true,
     use_less = false,
     scroll_strategy = 'cycle',
-    set_env = {['COLORTERM'] = 'truecolor'}, -- default { }, currently unsupported for shells like cmd.exe / powershell.exe
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default { }, currently unsupported for shells like cmd.exe / powershell.exe
   },
   extensions = {
     fzf = {
@@ -47,8 +47,8 @@ telescope.setup {
       -- the default case_mode is "smart_case"
     },
   },
-}
+})
 
-telescope.load_extension 'fzf'
-telescope.load_extension 'projects'
-require('project_nvim').setup {patterns = {'.git'}}
+telescope.load_extension('fzf')
+telescope.load_extension('projects')
+require('project_nvim').setup({ patterns = { '.git' } })

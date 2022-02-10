@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup({
   ensure_installed = {
     'bash',
     'c',
@@ -24,4 +24,4 @@ require'nvim-treesitter.configs'.setup {
     enable = true, -- false will disable the whole extension
     disable = {}, -- list of language that will be disabled
   },
-}
+})

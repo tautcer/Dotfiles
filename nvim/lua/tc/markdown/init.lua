@@ -1,1 +1,1 @@
-require 'tc.markdown.settings'
+require('tc.markdown.settings')

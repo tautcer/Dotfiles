@@ -1,15 +1,5 @@
 local null_ls = require('null-ls')
-local u = require('null-ls.utils')
 local b = null_ls.builtins
-
-local get_local_config = function(files, default)
-  local root = u.get_root()
-  local file
-  for _, v in pairs(files) do file = v end
-
-  if file then return vim.fn.expand(root .. '/' .. file) end
-  return vim.fn.expand(default)
-end
 
 local starts_with = function(str, start)
   return string.sub(str, 1, #start) == start
@@ -34,50 +24,41 @@ local create_runtime_condition = function(config_names)
     local config_path = require('lspconfig').util.root_pattern(config_names)(params.bufname)
 
     local has_config = config_path ~= nil
-    if has_config then table.insert(config_path_cache, config_path) end
+    if has_config then
+      table.insert(config_path_cache, config_path)
+    end
     bufnr_cache[params.bufnr] = has_config
 
     return has_config
   end
 end
 
-local eslint_runtime_condition = create_runtime_condition(
-  {
-    '.eslintrc.cjs',
-    '.eslintrc.js',
-    '.eslintrc.json',
-    '.eslintrc.yaml',
-    '.eslintrc.yml',
-  }
-)
+local eslint_runtime_condition = create_runtime_condition({
+  '.eslintrc.cjs',
+  '.eslintrc.js',
+  '.eslintrc.json',
+  '.eslintrc.yaml',
+  '.eslintrc.yml',
+})
 
-local prettier_runtime_condition = create_runtime_condition(
-  {
-    '.prettierrc',
-    '.prettierrc.json',
-  }
-)
+local prettier_runtime_condition = create_runtime_condition({ '.prettierrc', '.prettierrc.json' })
 
-null_ls.setup(
-  {
-    diagnostics_format = '[#{c}] #{m} (#{s})',
-    sources = {
-      b.formatting.lua_format.with(
-        {extra_args = {'-c', vim.fn.expand('~/.config/nvim/lua_format.yaml')}}
-      ),
-      b.formatting.prettier.with(
-        {extra_filetypes = {'scss', 'css', 'html', 'njk'}},
-        {runtime_condition = prettier_runtime_condition}
-      ),
-      b.diagnostics.eslint_d.with({runtime_condition = eslint_runtime_condition}),
-      b.formatting.eslint_d,
-      b.code_actions.eslint_d,
-      b.completion.spell,
-      b.formatting.golines.with(
-        {extra_args = {'--max-len=120', '--base-formatter=gofumpt'}}
-      ),
-      b.code_actions.gitsigns,
-      b.hover.dictionary,
-    },
-  }
-)
+local stylua_runtime_condition = create_runtime_condition({ 'stylua.toml', '.stylua.toml' })
+
+null_ls.setup({
+  diagnostics_format = '[#{c}] #{m} (#{s})',
+  sources = {
+    b.formatting.stylua.with({ runtime_condition = stylua_runtime_condition }),
+    b.formatting.prettier.with(
+      { extra_filetypes = { 'scss', 'css', 'html', 'njk' } },
+      { runtime_condition = prettier_runtime_condition }
+    ),
+    b.diagnostics.eslint_d.with({ runtime_condition = eslint_runtime_condition }),
+    b.formatting.eslint_d,
+    b.code_actions.eslint_d,
+    b.completion.spell,
+    b.formatting.golines.with({ extra_args = { '--max-len=120', '--base-formatter=gofumpt' } }),
+    b.code_actions.gitsigns,
+    b.hover.dictionary,
+  },
+})

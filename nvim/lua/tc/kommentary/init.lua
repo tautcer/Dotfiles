@@ -1,1 +1,1 @@
-require 'tc.kommentary.settings'
+require('tc.kommentary.settings')

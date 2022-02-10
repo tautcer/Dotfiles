@@ -2,7 +2,9 @@ local RELOAD = require('plenary.reload').reload_module
 
 Util = {}
 
-P = function(...) return print(vim.inspect({...})) end
+P = function(...)
+  return print(vim.inspect({ ... }))
+end
 R = function(name)
   RELOAD(name)
   return require(name)
@@ -37,7 +39,7 @@ end
 -- preview file using xdg_open
 Util.xdg_open = function()
   local filename = vim.fn.expand('<cfile>')
-  vim.loop.spawn('xdg-open', {args = {filename}})
+  vim.loop.spawn('xdg-open', { args = { filename } })
 end
 
 local to_rgb = function(hex)
@@ -46,16 +48,16 @@ local to_rgb = function(hex)
   if #hex == 9 then
     _, red, green, blue, alpha = hex:match('(.)(..)(..)(..)(..)')
     return string.format(
-      'rgba(%s, %s, %s, %s)', tonumber('0x' .. red), tonumber('0x' .. green),
-      tonumber('0x' .. blue), tonumber('0x' .. alpha)
+      'rgba(%s, %s, %s, %s)',
+      tonumber('0x' .. red),
+      tonumber('0x' .. green),
+      tonumber('0x' .. blue),
+      tonumber('0x' .. alpha)
     )
   end
 
   _, red, green, blue = hex:match('(.)(..)(..)(..)')
-  return string.format(
-    'rgb(%s, %s, %s)', tonumber('0x' .. red), tonumber('0x' .. green),
-    tonumber('0x' .. blue)
-  )
+  return string.format('rgb(%s, %s, %s)', tonumber('0x' .. red), tonumber('0x' .. green), tonumber('0x' .. blue))
 end
 
 local to_hex = function(rgb)
@@ -70,28 +72,28 @@ local to_hex = function(rgb)
 end
 
 Util.get_word = function()
-  local first_line, last_line = vim.fn.getpos('\'<')[2], vim.fn.getpos('\'>')[2]
-  local first_col, last_col = vim.fn.getpos('\'<')[3], vim.fn.getpos('\'>')[3]
-  local current_word = vim.fn.getline(first_line, last_line)[1]:sub(
-    first_col, last_col
-  )
+  local first_line, last_line = vim.fn.getpos("'<")[2], vim.fn.getpos("'>")[2]
+  local first_col, last_col = vim.fn.getpos("'<")[3], vim.fn.getpos("'>")[3]
+  local current_word = vim.fn.getline(first_line, last_line)[1]:sub(first_col, last_col)
 
   return current_word
 end
 
 Util.get_lines = function()
-  local first_line, last_line = vim.fn.getpos('\'<')[2], vim.fn.getpos('\'>')[2]
+  local first_line, last_line = vim.fn.getpos("'<")[2], vim.fn.getpos("'>")[2]
   local lines = vim.fn.getline(first_line, last_line)
 
   return lines
 end
 
 Util.get_visual = function()
-  local first_line, last_line = vim.fn.getpos('\'<')[2], vim.fn.getpos('\'>')[2]
-  local first_col, last_col = vim.fn.getpos('\'<')[3], vim.fn.getpos('\'>')[3]
+  local first_line, last_line = vim.fn.getpos("'<")[2], vim.fn.getpos("'>")[2]
+  local first_col, last_col = vim.fn.getpos("'<")[3], vim.fn.getpos("'>")[3]
   local lines = vim.fn.getline(first_line, last_line)
 
-  if #lines == 0 then return '' end
+  if #lines == 0 then
+    return ''
+  end
 
   lines[#lines] = lines[#lines]:sub(0, last_col - 2)
   lines[1] = lines[1]:sub(first_col - 1, -1)
@@ -115,7 +117,8 @@ vim.api.nvim_exec(
   [[
   command! -nargs=? -range=% ToRgb call v:lua.Util.convert_color('rgb')
   command! -nargs=? -range=% ToHex call v:lua.Util.convert_color('hex')
-]], true
+]],
+  true
 )
 
 Util.is_cfg_present = function(cfg_name)

@@ -4,23 +4,25 @@ local telescope_utils = require('telescope.utils')
 
 local use_git_root = true
 
-local get_filename = function ()
+local get_filename = function()
   return vim.fn.expand('%:t')
 end
 
 local get_git_root = function()
-  local git_root, ret = telescope_utils.get_os_command_output(
-    {'git', 'rev-parse', '--show-toplevel'}, vim.loop.cwd()
-  )
+  local git_root, ret = telescope_utils.get_os_command_output({ 'git', 'rev-parse', '--show-toplevel' }, vim.loop.cwd())
 
-  if ret ~= 0 then return vim.loop.cwd() end
+  if ret ~= 0 then
+    return vim.loop.cwd()
+  end
 
   return git_root[1]
 end
 
 local get_root = function()
   local root = get_git_root()
-  if not use_git_root then vim.loop.cwd() end
+  if not use_git_root then
+    vim.loop.cwd()
+  end
   return root
 end
 
@@ -31,27 +33,23 @@ end
 
 M.find_files = function()
   local _, curr_dir = root_name()
-  require('telescope.builtin').find_files({prompt_title = curr_dir})
+  require('telescope.builtin').find_files({ prompt_title = curr_dir })
 end
 
 M.live_grep = function()
   local root, curr_dir = root_name()
-  require('telescope.builtin').live_grep({cwd = root, prompt_title = curr_dir})
+  require('telescope.builtin').live_grep({ cwd = root, prompt_title = curr_dir })
 end
 
 M.grep_string = function(input)
   local root, curr_dir = root_name()
-  vim.schedule(
-    function()
-      require('telescope.builtin').grep_string(
-        {cwd = root, search = input, prompt_title = curr_dir}
-      )
-    end
-  )
+  vim.schedule(function()
+    require('telescope.builtin').grep_string({ cwd = root, search = input, prompt_title = curr_dir })
+  end)
 end
 
-M.buffers = function ()
-  require('telescope.builtin').buffers({prompt_title = 'Buffers'})
+M.buffers = function()
+  require('telescope.builtin').buffers({ prompt_title = 'Buffers' })
 end
 
 return M

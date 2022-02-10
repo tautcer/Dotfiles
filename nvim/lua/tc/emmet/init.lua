@@ -1,1 +1,0 @@
-require 'tc.emmet.settings'

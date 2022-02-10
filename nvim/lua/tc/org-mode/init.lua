@@ -1,1 +1,1 @@
-require 'tc.org-mode.settings'
+require('tc.org-mode.settings')

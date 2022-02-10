@@ -18,39 +18,39 @@ local function modify_mode_text(mode)
   return instructions[mode]
 end
 
-require'lualine'.setup {
+require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = "github",
-    section_separators = { "", "" },
-    component_separators = { "", "" },
+    theme = 'github',
+    section_separators = { '', '' },
+    component_separators = { '', '' },
     disabled_filetypes = {},
     padding = 1,
   },
   sections = {
-    lualine_a = {{'mode', fmt = modify_mode_text}},
-    lualine_b = {'branch'},
+    lualine_a = { { 'mode', fmt = modify_mode_text } },
+    lualine_b = { 'branch' },
     lualine_c = {
-      {'filename', file_status = true, path = 1},
+      { 'filename', file_status = true, path = 1 },
       require('lsp-status').status,
     },
     lualine_x = {
       {
         'diagnostics',
-        sources = {'nvim_diagnostic'},
-        sections = {'error', 'warn', 'info', 'hint'},
+        sources = { 'nvim_diagnostic' },
+        sections = { 'error', 'warn', 'info', 'hint' },
       },
     },
-    lualine_y = {'progress'},
-    lualine_z = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = { 'progress' },
+    lualine_z = { 'encoding', 'fileformat', 'filetype' },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {},
   },
-  extensions = {'fzf', 'fugitive'},
-}
+  extensions = { 'fzf', 'fugitive' },
+})

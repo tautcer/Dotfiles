@@ -1,1 +1,1 @@
-require 'tc.treesitter.settings'
+require('tc.treesitter.settings')

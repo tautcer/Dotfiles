@@ -1,4 +1,4 @@
-require('gitsigns').setup {
+require('gitsigns').setup({
   signs = {
     add = {
       hl = 'GitSignsAdd',
@@ -40,11 +40,11 @@ require('gitsigns').setup {
 
     ['n ]c'] = {
       expr = true,
-      '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\'',
+      "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
     },
     ['n [c'] = {
       expr = true,
-      '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\'',
+      "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
     },
 
     ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
@@ -58,8 +58,8 @@ require('gitsigns').setup {
     ['o ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',
     ['x ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',
   },
-  watch_gitdir = {interval = 1000},
+  watch_gitdir = { interval = 1000 },
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
-}
+})

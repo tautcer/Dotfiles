@@ -1,1 +1,1 @@
-require 'tc.gitsigns.settings'
+require('tc.gitsigns.settings')
