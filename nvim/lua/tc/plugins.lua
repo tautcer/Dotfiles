@@ -121,5 +121,8 @@ return require('packer').startup {
 
     -- Org mode
     use {'kristijanhusak/orgmode.nvim'}
+
+    -- Dap
+    use {'mfussenegger/nvim-dap'}
   end,
 }

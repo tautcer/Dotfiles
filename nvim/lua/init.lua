@@ -43,3 +43,5 @@ require 'tc.todo-comments'
 require 'tc.org-mode'
 
 require 'tc.null-ls'
+
+require 'tc.dap'
