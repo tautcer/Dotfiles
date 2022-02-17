@@ -110,7 +110,8 @@ return require('packer').startup({
     use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
 
     -- Org mode
-    use({ 'kristijanhusak/orgmode.nvim' })
+    use({'kristijanhusak/orgmode.nvim'})
+    use('mickael-menu/zk-nvim')
 
     -- Dap
     use('mfussenegger/nvim-dap')

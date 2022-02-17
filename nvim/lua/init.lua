@@ -43,3 +43,5 @@ require('tc.org-mode')
 require('tc.null-ls')
 
 require('tc.dap')
+
+require('tc.zk')

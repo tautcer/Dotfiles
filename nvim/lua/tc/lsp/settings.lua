@@ -159,6 +159,9 @@ local servers = {
       },
     },
   },
+  zk={
+    filetypes = { 'markdown', 'pandoc' }
+  },
 }
 
 local setup_server = function(server, config)
