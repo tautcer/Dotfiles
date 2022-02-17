@@ -25,22 +25,22 @@ return require('packer').startup({
     -- Packer can manage itself as an optional plugin
     use({ 'wbthomason/packer.nvim', opt = true })
 
-    use({ 'edkolev/tmuxline.vim' })
-    use({ 'windwp/nvim-autopairs' })
-    use({ 'numToStr/Comment.nvim' })
+    use('edkolev/tmuxline.vim')
+    use('windwp/nvim-autopairs')
+    use('numToStr/Comment.nvim')
 
     -- Markdown
-    use({ 'vim-pandoc/vim-pandoc' })
-    use({ 'vim-pandoc/vim-pandoc-syntax' })
+    use('vim-pandoc/vim-pandoc')
+    use('vim-pandoc/vim-pandoc-syntax')
     use({ 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' })
 
     -- Navigation
-    use({ 'kyazdani42/nvim-tree.lua' })
+    use('kyazdani42/nvim-tree.lua')
 
     -- Git
-    use({ 'lewis6991/gitsigns.nvim' })
-    use({ 'tpope/vim-fugitive' })
-    use({ 'sindrets/diffview.nvim' })
+    use('lewis6991/gitsigns.nvim')
+    use('tpope/vim-fugitive')
+    use('sindrets/diffview.nvim')
 
     -- Theme
     use('kyazdani42/nvim-web-devicons')
@@ -55,14 +55,14 @@ return require('packer').startup({
     })
 
     -- Lsp
-    use({ 'neovim/nvim-lspconfig' })
-    use({ 'nvim-lua/lsp-status.nvim' })
-    use({ 'norcalli/nvim-colorizer.lua' })
-    use({ 'RishabhRD/popfix' })
-    use({ 'RishabhRD/nvim-lsputils' })
-    use({ 'L3MON4D3/LuaSnip' }) -- Snippets plugin
-    use({ 'rafamadriz/friendly-snippets' })
-    use({ 'jose-elias-alvarez/null-ls.nvim' })
+    use('neovim/nvim-lspconfig')
+    use('nvim-lua/lsp-status.nvim')
+    use('norcalli/nvim-colorizer.lua')
+    use('RishabhRD/popfix')
+    use('RishabhRD/nvim-lsputils')
+    use('L3MON4D3/LuaSnip') -- Snippets plugin
+    use('rafamadriz/friendly-snippets')
+    use('jose-elias-alvarez/null-ls.nvim')
 
     -- nvim-cmp
     use({
@@ -85,34 +85,27 @@ return require('packer').startup({
       requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
     })
     use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
-    use({ 'ahmedkhalf/project.nvim' })
-    use({ 'camspiers/snap' })
+    use('ahmedkhalf/project.nvim')
+    use('camspiers/snap')
 
     -- Speed up nvim
-    use({ 'nathom/filetype.nvim' })
+    use('nathom/filetype.nvim')
 
     -- Misc
-    use({ 'lukas-reineke/indent-blankline.nvim' })
-    use({ 'voldikss/vim-floaterm' })
-    use({ 'matze/vim-move' })
-    use({ 'zhimsel/vim-stay' })
+    use('lukas-reineke/indent-blankline.nvim')
+    use('voldikss/vim-floaterm')
+    use('matze/vim-move')
+    use('zhimsel/vim-stay')
     -- Documentation builder, really useful for TS and Python
     use({
       'danymat/neogen',
       config = require('neogen').setup({ enabled = true }),
     })
-    use({ 'plasticboy/vim-markdown' })
-    use({ 'airblade/vim-rooter' })
-    use({ 'bling/vim-bufferline' })
-    use({ 'tversteeg/registers.nvim' })
-    use({
-      'tpope/vim-scriptease',
-      cmd = {
-        'Messages', -- view messages in quickfix list
-        'Verbose', -- view verbose output in preview window.
-        'Time', -- measure how long it takes to run some stuff.
-      },
-    })
+    use('plasticboy/vim-markdown')
+    use('airblade/vim-rooter')
+    use('bling/vim-bufferline')
+    use('tversteeg/registers.nvim')
+    use('tpope/vim-scriptease')
     -- Better TODO behavior
     use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
 
@@ -120,6 +113,6 @@ return require('packer').startup({
     use({ 'kristijanhusak/orgmode.nvim' })
 
     -- Dap
-    use({ 'mfussenegger/nvim-dap' })
+    use('mfussenegger/nvim-dap')
   end,
 })

@@ -5,7 +5,7 @@ local function map(type, input, output)
 end
 
 local function noremap(type, input, output)
-  vim.keymap.set(type, input, output, { noremap = true, silent = true })
+  vim.keymap.set(type, input, output, {noremap = true, silent = true})
 end
 
 function nnoremap(input, output)

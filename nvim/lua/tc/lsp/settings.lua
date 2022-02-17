@@ -3,41 +3,38 @@ local lsp_status = require('lsp-status')
 local util = require('lspconfig/util')
 local home = os.getenv('HOME')
 
-local map = function(type, key, value)
-  vim.api.nvim_buf_set_keymap(0, type, key, value, { noremap = true, silent = true })
-end
 local function on_attach(client)
   lsp_status.on_attach(client)
 
   -- use omnifunc
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-  map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-  map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-  map('n', 'gr', "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
-  map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  map('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  map('n', '<leader>gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-  map('n', '<leader>gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-  map(
-    'n',
-    '<leader>ca',
-    "<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<cr>"
-  )
-  map(
-    'v',
-    '<leader>ca',
-    "<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<cr>"
-  )
+  nnoremap('gd', vim.lsp.buf.definition)
+  nnoremap('K', vim.lsp.buf.hover)
+  nnoremap('gr', function()
+    RTELE()
+    require('telescope.builtin').lsp_references()
+  end)
+  nnoremap('gs', vim.lsp.buf.signature_help)
+  nnoremap('gi', vim.lsp.buf.implementation)
+  nnoremap('gt', vim.lsp.buf.type_definition)
+  nnoremap('<leader>gw', vim.lsp.buf.document_symbol)
+  nnoremap('<leader>gW', vim.lsp.buf.workspace_symbol)
+  nnoremap('<leader>ca', function()
+    require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())
+  end)
+  vnoremap('<leader>ca', function()
+    require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())
+  end)
 
-  map('n', '<leader>ee', '<cmd>lua vim.lsp.diagnostics.show_line_diagnostics()<CR>')
-  map('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  map('n', '<leader>ai', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
-  map('n', '<leader>ao', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
-  map('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-  map('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-  map('n', '<Leader>ff', '<cmd>lua vim.lsp.buf.formatting()<cr>')
+  nnoremap('<leader>rr', vim.lsp.buf.rename)
+  nnoremap('g[', vim.diagnostic.goto_prev)
+  nnoremap('g]', vim.diagnostic.goto_next)
+  nnoremap('<leader>ff', vim.lsp.buf.formatting)
+
+  if client.name == 'tsserver' or client.name == 'html' or client.name == 'lua' then
+    client.resolved_capabilities.document_formatting = false
+  end
 end
 
 lsp_status.register_progress()

@@ -9,8 +9,11 @@ local get_filename = function()
 end
 
 local get_git_root = function()
-  local git_root, ret = telescope_utils.get_os_command_output({ 'git', 'rev-parse', '--show-toplevel' }, vim.loop.cwd())
-
+  local git_root, ret = telescope_utils.get_os_command_output({
+    'git',
+    'rev-parse',
+    '--show-toplevel',
+  }, vim.loop.cwd())
   if ret ~= 0 then
     return vim.loop.cwd()
   end
