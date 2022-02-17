@@ -159,8 +159,8 @@ local servers = {
       },
     },
   },
-  zk={
-    filetypes = { 'markdown', 'pandoc' }
+  zk = {
+    filetypes = { 'markdown', 'pandoc' },
   },
 }
 
