@@ -48,7 +48,10 @@ local stylua_runtime_condition = create_runtime_condition({ 'stylua.toml', '.sty
 null_ls.setup({
   diagnostics_format = '[#{c}] #{m} (#{s})',
   sources = {
+    -- Lua
     b.formatting.stylua.with({ runtime_condition = stylua_runtime_condition }),
+
+    -- Js/Ts/Json
     b.formatting.prettier.with(
       { extra_filetypes = { 'scss', 'css', 'html', 'njk' } },
       { runtime_condition = prettier_runtime_condition }
@@ -56,9 +59,23 @@ null_ls.setup({
     b.diagnostics.eslint_d.with({ runtime_condition = eslint_runtime_condition }),
     b.formatting.eslint_d,
     b.code_actions.eslint_d,
-    b.completion.spell,
+
+    -- Go
     b.formatting.golines.with({ extra_args = { '--max-len=120', '--base-formatter=gofumpt' } }),
+
+    -- Git
     b.code_actions.gitsigns,
+
+    -- Spelling
+    b.completion.spell,
     b.hover.dictionary,
+		b.diagnostics.codespell.with({
+			args = { "--builtin", "clear,rare,code", "-" },
+		}),
+
+		-- Shell
+		null_ls.builtins.formatting.shfmt,
+		null_ls.builtins.diagnostics.shellcheck,
+		null_ls.builtins.code_actions.shellcheck,
   },
 })
