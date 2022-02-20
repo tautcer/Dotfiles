@@ -55,4 +55,9 @@ M.buffers = function()
   require('telescope.builtin').buffers({ prompt_title = 'Buffers' })
 end
 
+M.lsp_references = function()
+  local reference_word = 'References for: ' .. string.upper(vim.fn.expand('<cword>'))
+  require('telescope.builtin').lsp_references({ prompt_title = reference_word })
+end
+
 return M
