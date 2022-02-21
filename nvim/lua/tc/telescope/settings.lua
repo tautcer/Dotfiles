@@ -38,6 +38,19 @@ telescope.setup({
     scroll_strategy = 'cycle',
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default { }, currently unsupported for shells like cmd.exe / powershell.exe
   },
+  pickers = {
+    buffers = {
+      sort_lastused = true,
+      sort_mru = true,
+      ignore_current_buffer = true,
+      theme = "dropdown",
+      previewer = false,
+      mappings = {
+        i = { ["<C-d>"] = actions.delete_buffer },
+        n = { ["<C-d>"] = actions.delete_buffer },
+      },
+    },
+  },
   extensions = {
     fzf = {
       fuzzy = true, -- false will only do exact matching
@@ -49,6 +62,6 @@ telescope.setup({
   },
 })
 
-telescope.load_extension('fzf')
 telescope.load_extension('projects')
+require('telescope').load_extension('fzf')
 require('project_nvim').setup({ patterns = { '.git' } })
