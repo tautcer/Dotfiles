@@ -28,6 +28,10 @@ function cnoremap(input, output)
   noremap('c', input, output)
 end
 
+function onoremap(input, output)
+  noremap('o', input, output)
+end
+
 function nmap(input, output)
   map('n', input, output)
 end

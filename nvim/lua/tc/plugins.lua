@@ -115,5 +115,11 @@ return require('packer').startup({
 
     -- Dap
     use('mfussenegger/nvim-dap')
+
+    -- Hop
+    use {
+      'phaazon/hop.nvim',
+      branch = 'v1', -- optional but strongly recommended
+    }
   end,
 })

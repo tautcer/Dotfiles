@@ -45,3 +45,5 @@ require('tc.null-ls')
 require('tc.dap')
 
 require('tc.zk')
+
+require('tc.hop')
