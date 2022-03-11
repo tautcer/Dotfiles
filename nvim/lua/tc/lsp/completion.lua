@@ -1,13 +1,3 @@
--- Nvim-lsputils stuff
-vim.lsp.handlers['textDocument/codeAction'] = require('lsputil.codeAction').code_action_handler
-vim.lsp.handlers['textDocument/references'] = require('lsputil.locations').references_handler
-vim.lsp.handlers['textDocument/definition'] = require('lsputil.locations').definition_handler
-vim.lsp.handlers['textDocument/declaration'] = require('lsputil.locations').declaration_handler
-vim.lsp.handlers['textDocument/typeDefinition'] = require('lsputil.locations').typeDefinition_handler
-vim.lsp.handlers['textDocument/implementation'] = require('lsputil.locations').implementation_handler
--- vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-vim.lsp.handlers['workspace/symbol'] = require('lsputil.symbols').workspace_handler
-
 local cmp_kinds = {
   Class = ' Class',
   Color = ' Color',
@@ -40,11 +30,6 @@ require('luasnip/loaders/from_vscode').lazy_load()
 
 -- luasnip setup
 local luasnip = require('luasnip')
-
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-end
 
 -- nvim-cmp setup
 local cmp = require('cmp')
