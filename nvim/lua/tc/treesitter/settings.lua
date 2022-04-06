@@ -24,4 +24,7 @@ require('nvim-treesitter.configs').setup({
     enable = true, -- false will disable the whole extension
     disable = {}, -- list of language that will be disabled
   },
+  context_commentstring = {
+    enable = true
+  }
 })

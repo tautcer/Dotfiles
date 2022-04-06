@@ -6,4 +6,3 @@ require('github-theme').setup({
   variable_style = 'NONE',
   transparent = true,
 })
--- vim.api.nvim_command [[ colorscheme github_dark_default ]]

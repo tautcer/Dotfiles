@@ -18,12 +18,12 @@ telescope.setup({
     sorting_strategy = 'descending',
     layout_strategy = 'flex',
     layout_config = { vertical = { width = 075 } },
-    mappings = {
-      i = {
-        ['<C-k>'] = actions.preview_scrolling_up,
-        ['<C-j>'] = actions.preview_scrolling_down,
-      },
-    },
+    -- mappings = {
+    --   i = {
+    --     ['<C-k>'] = actions.preview_scrolling_up,
+    --     ['<C-j>'] = actions.preview_scrolling_down,
+    --   },
+    -- },
     file_sorter = require('telescope.sorters').get_fzy_sorter,
     file_ignore_patterns = { 'yarn.lock', 'package-lock' },
     generic_sorter = require('telescope.sorters').get_generic_fuzzy_sorter,
@@ -62,6 +62,4 @@ telescope.setup({
   },
 })
 
-telescope.load_extension('projects')
 require('telescope').load_extension('fzf')
-require('project_nvim').setup({ patterns = { '.git' } })

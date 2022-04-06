@@ -4,7 +4,6 @@ PWD=$(pwd)
 
 counter=0
 function git_dir {
-  # dirs=$(find . -type d 2>/dev/null)
   if [[ $PWD == "$HOME" ]]; then
     return 0
   fi
@@ -14,7 +13,7 @@ function git_dir {
   fi
 
   ((counter+=1))
-  if [[ ! -d ".git/"  ]]; then
+  if [[ ! -d ".git/" && ! -f "HEAD" ]]; then
     cd ..
     git_dir "$PWD"
   fi

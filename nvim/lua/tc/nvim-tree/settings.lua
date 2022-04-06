@@ -1,12 +1,11 @@
--- Set some variables
-vim.g.nvim_tree_side = 'left'
-vim.g.nvim_tree_width = 50
-vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_root_folder_modifier = ':~'
-vim.g.nvim_tree_show_icons = { git = 0, folders = 1, files = 1 }
-
 -- Mappings for nvimtree
+vim.g.nvim_tree_git_hl = 1
+vim.g.nvim_tree_show_icons = {
+  git = 1,
+  folders = 1,
+  files = 1,
+  folder_arrows = 0,
+}
 local tree_cb = require('nvim-tree.config').nvim_tree_callback
 local list = {
   { key = { '<CR>', 'o', 'l' }, cb = tree_cb('edit') },
@@ -47,7 +46,6 @@ local list = {
 vim.g.nvim_tree_icons = {
   default = '',
   symlink = '',
-
   git = {
     unstaged = '✗',
     staged = '✓',
@@ -55,7 +53,6 @@ vim.g.nvim_tree_icons = {
     renamed = '➜',
     untracked = '★',
   },
-
   folder = { default = '', open = ' ' },
 }
 
@@ -71,6 +68,11 @@ require('nvim-tree').setup({
       list = list,
     },
   },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 400,
+  },
   update_focused_file = {
     enable = false,
     update_cwd = false,
@@ -81,6 +83,14 @@ require('nvim-tree').setup({
       '.routify',
       'dist',
       '.cache',
+    },
+  },
+  indent_markers = true,
+  root_folder_modifier = ':~',
+  log = {
+    enable = false,
+    types = {
+      git = true,
     },
   },
 })

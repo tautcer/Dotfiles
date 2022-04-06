@@ -53,7 +53,7 @@ null_ls.setup({
 
     -- Js/Ts/Json
     b.formatting.prettier.with(
-      { extra_filetypes = { 'scss', 'css', 'html', 'njk' } },
+      { extra_filetypes = { 'scss', 'css', 'html' } },
       { runtime_condition = prettier_runtime_condition }
     ),
     b.diagnostics.eslint_d.with({ runtime_condition = eslint_runtime_condition }),
@@ -69,13 +69,13 @@ null_ls.setup({
     -- Spelling
     b.completion.spell,
     b.hover.dictionary,
-		b.diagnostics.codespell.with({
-			args = { "--builtin", "clear,rare,code", "-" },
-		}),
 
-		-- Shell
-		null_ls.builtins.formatting.shfmt,
-		null_ls.builtins.diagnostics.shellcheck,
-		null_ls.builtins.code_actions.shellcheck,
+    -- Shell
+    b.formatting.shfmt,
+    b.diagnostics.shellcheck,
+    b.code_actions.shellcheck,
+
+    -- Terraform
+    b.formatting.terraform_fmt,
   },
 })

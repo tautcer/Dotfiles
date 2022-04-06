@@ -1,6 +1,8 @@
-local M = {}
-
+local previewers = require('telescope.previewers')
+local builtin    = require('telescope.builtin')
 local telescope_utils = require('telescope.utils')
+
+local M = {}
 
 local use_git_root = true
 
@@ -58,6 +60,41 @@ end
 M.lsp_references = function()
   local reference_word = 'References for: ' .. string.upper(vim.fn.expand('<cword>'))
   require('telescope.builtin').lsp_references({ prompt_title = reference_word })
+end
+
+local delta = previewers.new_termopen_previewer {
+  get_command = function(entry)
+    return { 'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=false', 'log', '-p', entry.value .. '^!' }
+  end
+}
+
+M.git_commits = function(opts)
+  opts = opts or {}
+  opts.previewer = {
+    delta,
+    previewers.git_commit_message.new(opts),
+    previewers.git_commit_diff_as_was.new(opts),
+  }
+
+  builtin.git_commits(opts)
+end
+
+M.git_bcommits = function(opts)
+  opts = opts or {}
+  opts.previewer = {
+    delta,
+    previewers.git_commit_message.new(opts),
+    previewers.git_commit_diff_as_was.new(opts),
+  }
+
+  builtin.git_bcommits(opts)
+end
+
+M.delta_git_status = function(opts)
+    opts = opts or {}
+    opts.previewer = delta
+
+    builtin.git_status(opts)
 end
 
 return M

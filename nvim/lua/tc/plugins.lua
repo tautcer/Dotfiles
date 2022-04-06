@@ -28,10 +28,9 @@ return require('packer').startup({
     use('edkolev/tmuxline.vim')
     use('windwp/nvim-autopairs')
     use('numToStr/Comment.nvim')
+    use('JoosepAlviste/nvim-ts-context-commentstring')
 
     -- Markdown
-    use('vim-pandoc/vim-pandoc')
-    use('vim-pandoc/vim-pandoc-syntax')
     use({ 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' })
 
     -- Navigation
@@ -82,8 +81,6 @@ return require('packer').startup({
       requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
     })
     use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
-    use('ahmedkhalf/project.nvim')
-    use('camspiers/snap')
 
     -- Speed up nvim
     use('nathom/filetype.nvim')
@@ -107,16 +104,18 @@ return require('packer').startup({
     use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
 
     -- Org mode
-    use({'kristijanhusak/orgmode.nvim'})
+    use({ 'kristijanhusak/orgmode.nvim' })
     use('mickael-menu/zk-nvim')
 
     -- Dap
     use('mfussenegger/nvim-dap')
 
     -- Hop
-    use {
+    use({
       'phaazon/hop.nvim',
       branch = 'v1', -- optional but strongly recommended
-    }
+    })
+    -- Scala support
+    use({ 'scalameta/nvim-metals', requires = { 'nvim-lua/plenary.nvim' } })
   end,
 })
