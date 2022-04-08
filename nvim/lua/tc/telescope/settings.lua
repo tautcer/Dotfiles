@@ -18,12 +18,6 @@ telescope.setup({
     sorting_strategy = 'descending',
     layout_strategy = 'flex',
     layout_config = { vertical = { width = 075 } },
-    -- mappings = {
-    --   i = {
-    --     ['<C-k>'] = actions.preview_scrolling_up,
-    --     ['<C-j>'] = actions.preview_scrolling_down,
-    --   },
-    -- },
     file_sorter = require('telescope.sorters').get_fzy_sorter,
     file_ignore_patterns = { 'yarn.lock', 'package-lock' },
     generic_sorter = require('telescope.sorters').get_generic_fuzzy_sorter,
@@ -41,13 +35,11 @@ telescope.setup({
   pickers = {
     buffers = {
       sort_lastused = true,
-      sort_mru = true,
-      ignore_current_buffer = true,
-      theme = "dropdown",
-      previewer = false,
+      ignore_current_buffer = false,
+      layout_strategy = 'flex',
       mappings = {
-        i = { ["<C-d>"] = actions.delete_buffer },
-        n = { ["<C-d>"] = actions.delete_buffer },
+        i = { ['<C-d>'] = actions.delete_buffer },
+        n = { ['<C-d>'] = actions.delete_buffer },
       },
     },
   },

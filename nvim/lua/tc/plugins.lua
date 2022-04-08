@@ -32,6 +32,8 @@ return require('packer').startup({
 
     -- Markdown
     use({ 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' })
+    use('vim-pandoc/vim-pandoc')
+    use('vim-pandoc/vim-pandoc-syntax')
 
     -- Navigation
     use('kyazdani42/nvim-tree.lua')
@@ -95,7 +97,6 @@ return require('packer').startup({
       'danymat/neogen',
       config = require('neogen').setup({ enabled = true }),
     })
-    use('plasticboy/vim-markdown')
     use('airblade/vim-rooter')
     use('bling/vim-bufferline')
     use('tversteeg/registers.nvim')

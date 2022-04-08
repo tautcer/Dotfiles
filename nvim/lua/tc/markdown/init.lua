@@ -1,1 +1,0 @@
-require('tc.markdown.settings')

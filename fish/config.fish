@@ -1,4 +1,5 @@
 . ~/.config/fish/aliases.fish
+. ~/.config/fish/keys.fish
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
@@ -9,17 +10,19 @@ set -x GOPATH $HOME/go
 set -x PATH $PATH /usr/local/go/bin $GOPATH/bin
 set -x fish_user_paths ~/.deno/bin
 set -x fish_user_paths $HOME/.local/bin
+set -x fish_user_paths $HOME/.local/share/coursier/bin
 
 set -Ux PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
 set -x VIRTUAL_ENV_DISABLE_PROMPT 0
-set -x JAVA_HOME "/usr/lib/jvm/java-11-openjdk"
+set -x JAVA_HOME $HOME/.sdkman/candidates/java/11.0.12-open
 set -U FZF_LEGACY_KEYBINDINGS 0
 set -U fish_key_bindings fish_default_key_bindings
 set PATH $HOME/.cargo/bin $PATH
 set -x BROWSER /usr/bin/google-chrome-stable
 set -x MANPAGER nvim +Man!
+set -gx PATH $PATH $HOME/.krew/bin
 
 abbr -a e nvim
 abbr -a v nvim
@@ -72,3 +75,5 @@ end
 function pushorigin
     git push origin --set-upstream (git branch | grep '^*' | tr -d '* ')
 end
+
+nvm use v17.7.1 1> /dev/null
